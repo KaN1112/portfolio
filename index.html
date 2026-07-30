@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Web、Discord Bot、サムネイルを手がけるKaNのポートフォリオ。">
+  <title>KaN — Portfolio</title>
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="assets/favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header>
+    <a class="logo" href="#top"><b>KaN's Portfolio</b><small>CREATIVE UNIT</small></a>
+    <button class="menu" aria-expanded="false" aria-controls="nav">MENU</button>
+    <nav id="nav" aria-label="メインナビゲーション">
+      <a href="#works">Works</a><a href="#about">About</a><a href="#commission">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="eyebrow"><span>Esports creative & development</span><span></span></div>
+      <div class="match-tag"><span>MAKE</span> CREATIVE </div>
+      <h1>チームの<em>印象</em>を、<br><em>設計</em>する。</h1>
+      <aside><p>チームサイト、Discord Bot、サムネイル。<br>@KaN_Stream4 のポートフォリオ。</p><a class="round" href="#works">VIEW WORKS<br>↘</a></aside>
+      <div class="stamp" aria-hidden="true">勝<br><small>負</small></div>
+      <small class="scroll">SCROLL / ENTER THE ARENA ↓</small>
+    </section>
+
+    <section class="about" id="about">
+      <p class="label">00 / About</p>
+      <div><h2>Esportsをはじめ、<br>個人からの依頼も。</h2><p>チームの個性が伝わるWeb制作。個人活動者様のWeb制作。<br>コミュニティや大会運営用のディスコードボットなどを制作します。</p></div>
+      <dl><div><dt>01</dt><dd>Years<br>crafting</dd></div><div><dt>20+</dt><dd>Projects<br>delivered</dd></div></dl>
+    </section>
+
+    <section class="works" id="works">
+      <div class="section-head"><div><p class="label">01 / Selected Works</p><h2>KaNの、<br><i>制作実績。</i></h2></div>
+        <div class="filters" role="group" aria-label="作品カテゴリ">
+          <button class="active" data-filter="all" aria-pressed="true">すべて <sup>08</sup></button>
+          <button data-filter="web" aria-pressed="false">Web <sup>04</sup></button>
+          <button data-filter="bot" aria-pressed="false">Discord Bot <sup>04</sup></button>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="work" data-type="web"><a class="art capture" href="https://weiser-osaka.com/" target="_blank" rel="noopener"><img src="assets/site-weiser.png" alt="Weiser Osaka公式サイトのスクリーンショット"><span>OPEN SITE ↗</span></a><div class="meta"><span>01</span><div><h3>Weiser Osaka</h3><p>大阪を拠点とするeスポーツチーム。KaNが現在運営で所属しております。</p><small>Web Design</small></div></div></article>
+        <article class="work" data-type="web"><a class="art capture" href="https://z3ctesports.github.io/z3ct/" target="_blank" rel="noopener"><img src="assets/site-z3ct.png" alt="Z3ct esports公式サイトのスクリーンショット"><span>OPEN SITE ↗</span></a><div class="meta"><span>02</span><div><h3>Z3ct esports</h3><p>Z3ct esportsの公式サイトです。</p><small>Web Design</small></div></div></article>
+        <article class="work" data-type="web"><a class="art capture" href="https://tknscrim.github.io/" target="_blank" rel="noopener"><img src="assets/site-tknscrim.png" alt="TK'N SCRIM公式サイトのスクリーンショット"><span>OPEN SITE ↗</span></a><div class="meta"><span>03</span><div><h3>TK'N SCRIM</h3><p>Fortnite賞金付きスクリムの開催情報を掲載する大会サイトです。</p><small>Event Site</small></div></div></article>
+        <article class="work" data-type="web"><a class="art capture" href="https://kan-official.com/" target="_blank" rel="noopener"><img src="assets/site-kan.png" alt="KaN Official Siteのスクリーンショット"><span>OPEN SITE ↗</span></a><div class="meta"><span>04</span><div><h3>KaN Official Site</h3><p>活動内容と制作実績を発信するKaNのオフィシャルサイトです。</p><small>Official Site</small></div></div></article>
+        <article class="work" data-type="bot"><button class="art capture bot-shot" data-lightbox="Stickbot" data-image="assets/bot-stickbot.png" aria-label="Stickbotを拡大"><img src="assets/bot-stickbot.png" alt="StickbotのDiscordプロフィール"><span>VIEW IMAGE ＋</span></button><div class="meta"><span>05</span><div><h3>Stickbot</h3><p>指定したメッセージをチャンネル最下部へ固定表示します。</p><small>Discord Bot</small></div></div></article>
+        <article class="work" data-type="bot"><button class="art capture bot-shot" data-lightbox="チーム登録" data-image="assets/bot-team-register.png" aria-label="チーム登録Botを拡大"><img src="assets/bot-team-register.png" alt="チーム登録BotのDiscordプロフィール"><span>VIEW IMAGE ＋</span></button><div class="meta"><span>06</span><div><h3>チームメンバー登録bot</h3><p>コマンド一つで専用ロールとVCを作成します。</p><small>Discord Bot</small></div></div></article>
+        <article class="work" data-type="bot"><button class="art capture bot-shot" data-lightbox="メンバー管理" data-image="assets/bot-member-manager.png" aria-label="メンバー管理Botを拡大"><img src="assets/bot-member-manager.png" alt="メンバー管理BotのDiscordプロフィール"><span>VIEW IMAGE ＋</span></button><div class="meta"><span>07</span><div><h3>メンバー管理bot</h3><p>eスポーツチームやコミュニティの登録メンバーを管理・一覧表示します。</p><small>Discord Bot</small></div></div></article>
+        <article class="work" data-type="bot"><button class="art capture bot-shot" data-lightbox="毒舌おみくじボット" data-image="assets/bot-omikuji.png" aria-label="毒舌おみくじボットを拡大"><img src="assets/bot-omikuji.png" alt="毒舌おみくじボットのDiscordプロフィール"><span>VIEW IMAGE ＋</span></button><div class="meta"><span>08</span><div><h3>毒舌おみくじボット</h3><p>1時間に一度引ける、毒舌コメント付きのおみくじ機能を提供します。</p><small>Discord Bot</small></div></div></article>
+      </div>
+    </section>
+
+    <section class="process"><p class="label">02 / How I Work</p><h2>細部まで、<i>丁寧に。</i></h2><ol>
+      <li><span>一</span><b>聞く</b><small>LISTEN</small><p>ページ指定や雰囲気指定などを伺います。</p></li>
+      <li><span>二</span><b>組む</b><small>DESIGN</small><p>必要なものを整理し、骨格から細部へ形にします。</p></li>
+      <li><span>三</span><b>納品</b><small>REFINE</small><p>何度か検証を重ね、納品します。</p></li>
+    </ol></section>
+
+    <section class="commission" id="commission">
+      <div><p class="label">03 / Contact</p><h2>あなたの活動を、<br><i>一緒につくる。</i></h2><p>まだ活動開始直後でも大丈夫です。</p><dl><div><dt>Team / Event Site</dt><dd>¥20,000〜</dd></div><div><dt>Discord Bot</dt><dd>¥5,000〜</dd></div><div><dt>Thumbnail</dt><dd>¥200〜</dd></div></dl></div>
+      <!-- ↓ Formspreeで取得したURLへ差し替えてください -->
+      <form action="https://formspree.io/f/mbdnervp" method="POST">
+        <div class="two"><label>01 お名前 <b>必須</b><input name="name" required autocomplete="name" placeholder="山田 太郎"></label><label>02 メールアドレス <b>必須</b><input type="email" name="email" required autocomplete="email" placeholder="hello@example.com"></label></div>
+        <fieldset><legend>03 ご依頼内容 <b>必須</b></legend><div class="radios">
+          <label><input type="radio" name="category" value="Web制作" required><span>Web制作　○</span></label>
+          <label><input type="radio" name="category" value="Discord Bot開発"><span>Discord Bot開発　○</span></label>
+          <label><input type="radio" name="category" value="サムネイル作成"><span>サムネイル作成　○</span></label>
+          <label><input type="radio" name="category" value="その他"><span>その他　○</span></label>
+        </div></fieldset>
+        <label>04 ご相談の詳細 <b>必須</b><textarea name="message" rows="5" required placeholder="作りたいもの、目的、現在のお困りごとなど。"></textarea></label>
+        <label>05 ご予算・納期の目安 <em>任意</em><input name="budget_schedule" placeholder="例：20万円前後 / 11月末まで"></label>
+        <div class="send"><small>内容は、ご返信以外の目的には使用しません。納金方法はPayPayもしくは銀行振込となります。</small><button>相談を送る　→</button></div>
+      </form>
+    </section>
+  </main>
+
+  <footer><div class="footer-y"></div><div><h2>ご依頼お待ちしております</h2><small></small></div><nav><a href="https://x.com/KaN_Stream4">X ↗</a><a href="https://discord.gg/aacdxK94UQ">Discord ↗</a></nav><p>© 2026 KaN's Portfolio. ALL RIGHTS RESERVED.</p></footer>
+  <dialog id="lightbox"><button aria-label="閉じる">閉じる ×</button><div class="preview"></div><h2></h2></dialog>
+</body>
+</html>
