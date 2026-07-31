@@ -3,11 +3,33 @@ const nav = document.querySelector("#nav");
 menuButton.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+  document.body.classList.toggle("menu-open", open);
 });
 nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
   nav.classList.remove("open");
   menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "メニューを開く");
+  document.body.classList.remove("menu-open");
 }));
+
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape" || !nav.classList.contains("open")) return;
+  nav.classList.remove("open");
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "メニューを開く");
+  document.body.classList.remove("menu-open");
+  menuButton.focus();
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 760 && nav.classList.contains("open")) {
+    nav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "メニューを開く");
+    document.body.classList.remove("menu-open");
+  }
+});
 
 document.querySelectorAll(".filters button").forEach(button => {
   button.addEventListener("click", () => {
