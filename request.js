@@ -13,16 +13,24 @@ const pricing = Object.freeze({
   api: 5000,
   deploy: 3000,
   botMonthly: 3000,
-  thumbnail: 3000,
-  logo: 8000,
-  header: 5000,
-  icon: 4000,
-  poster: 6000,
-  banner: 4000
+  videoThumbnail: 200,
+  streamThumbnail: 250,
+  youtubeVertical: 300,
+  tiktokBackground: 300,
+  planned1: 0,
+  planned2: 0
 });
 
 const serviceNames = { web: "Web制作", bot: "Discord Bot制作", design: "デザイン制作" };
-const designNames = { thumbnail: "サムネイル", logo: "ロゴ", header: "ヘッダー", icon: "アイコン", poster: "ポスター", banner: "バナー", other: "その他（別途見積り）" };
+const designNames = {
+  videoThumbnail: "動画サムネイル",
+  streamThumbnail: "配信サムネイル",
+  youtubeVertical: "YouTube縦型配信、shorts背景",
+  tiktokBackground: "TikTok配信背景",
+  planned1: "今後追加予定",
+  planned2: "今後追加予定",
+  other: "その他（別途見積り）"
+};
 const form = document.querySelector("#requestForm");
 const nav = document.querySelector("#nav");
 const menuButton = document.querySelector(".menu");
@@ -109,7 +117,7 @@ function calculateEstimate() {
   }
 
   if (service === "design") {
-    const type = selected("design_type") || "thumbnail";
+    const type = selected("design_type") || "streamThumbnail";
     if (type === "other") {
       initial = 0;
       requiresQuote = true;
