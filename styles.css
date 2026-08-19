@@ -302,16 +302,32 @@ body.intro-active {
 }
 @media (max-width: 600px) {
   .site-intro__title {
-    font-size: 14vw;
+    max-width: none;
+    font-size: clamp(40px, 11.5vw, 58px);
+    transform-origin: center;
+    animation-name: intro-title-mobile;
   }
   .site-intro__frame {
     align-items: flex-end;
   }
   .site-intro__sequence {
-    width: 88vw;
+    width: 100%;
+    padding: 0 16px;
+    justify-items: center;
+    text-align: center;
   }
   .site-intro__caption {
     margin-top: 18px;
+  }
+}
+@keyframes intro-title-mobile {
+  from {
+    opacity: 0;
+    transform: rotateX(32deg) translateY(50px) translateZ(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(10deg) translateZ(45px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1571,4 +1587,24 @@ body:not(.subpage):not(.request-page) header {
 .no-webgl .hero {
   background:
     radial-gradient(circle at 75% 35%, rgba(255, 90, 31, 0.15), transparent 30%), var(--paper);
+}
+
+/* Keep Japanese display headings on intentional line breaks only. */
+.hero h1 {
+  font-size: clamp(56px, 8vw, 128px);
+  line-height: 0.86;
+  white-space: nowrap;
+}
+footer h2 {
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 9.4vw;
+    line-height: 0.95;
+  }
+  footer h2 {
+    font-size: clamp(23px, 6.8vw, 34px);
+    line-height: 0.95;
+  }
 }
