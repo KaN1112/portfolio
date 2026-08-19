@@ -1602,6 +1602,11 @@ footer h2 {
   font-weight: 800;
   white-space: nowrap;
 }
+.work[data-type="bot"] .meta h3 {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
 @media (max-width: 600px) {
   .hero {
     padding-right: 10px;
