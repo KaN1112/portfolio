@@ -18,7 +18,7 @@
   youtubeVertical: 3000,
   tiktokBackground: 3000,
   planned1: 0,
-  planned2: 0
+  planned2: 0,
 });
 
 const serviceNames = { web: "Web制作", bot: "Discord Bot制作", design: "デザイン制作" };
@@ -29,7 +29,7 @@ const designNames = {
   tiktokBackground: "TikTok配信背景",
   planned1: "今後追加予定",
   planned2: "今後追加予定",
-  other: "その他（別途見積り）"
+  other: "その他（別途見積り）",
 };
 const form = document.querySelector("#requestForm");
 const nav = document.querySelector("#nav");
@@ -74,7 +74,8 @@ function calculateEstimate() {
       const extraPages = Math.max(0, pages - 4);
       initial = pricing.webMulti + extraPages * pricing.pageAdd;
       options.push(`複数ページ（${pages}ページ）`);
-      if (extraPages) additions.push(`追加ページ × ${extraPages}：${yen(extraPages * pricing.pageAdd)}`);
+      if (extraPages)
+        additions.push(`追加ページ × ${extraPages}：${yen(extraPages * pricing.pageAdd)}`);
     }
     if (selected("web_contact") === "formspree") {
       initial += pricing.contact;
@@ -83,9 +84,13 @@ function calculateEstimate() {
     } else options.push("お問い合わせフォームなし");
 
     const manage = selected("web_manage") || "none";
-    if (manage === "light") { monthly = pricing.manageLight; options.push("ライト管理"); }
-    else if (manage === "standard") { monthly = pricing.manageStandard; options.push("スタンダード管理"); }
-    else options.push("納品後管理なし");
+    if (manage === "light") {
+      monthly = pricing.manageLight;
+      options.push("ライト管理");
+    } else if (manage === "standard") {
+      monthly = pricing.manageStandard;
+      options.push("スタンダード管理");
+    } else options.push("納品後管理なし");
   }
 
   if (service === "bot") {
@@ -103,17 +108,22 @@ function calculateEstimate() {
       ["bot_database", "データベース", pricing.database],
       ["bot_dashboard", "Web管理画面", pricing.dashboard],
       ["bot_api", "外部API連携", pricing.api],
-      ["bot_deploy", "Bot公開設定（Render）", pricing.deploy]
+      ["bot_deploy", "Bot公開設定（Render）", pricing.deploy],
     ];
     botOptions.forEach(([name, label, price]) => {
       if (!checked(name)) return;
       initial += price;
-      const detail = name === "bot_api" && document.querySelector("#apiName").value.trim() ? `（${document.querySelector("#apiName").value.trim()}）` : "";
+      const detail =
+        name === "bot_api" && document.querySelector("#apiName").value.trim()
+          ? `（${document.querySelector("#apiName").value.trim()}）`
+          : "";
       options.push(`${label}${detail}`);
       additions.push(`${label}：${yen(price)}${name === "bot_api" ? "〜" : ""}`);
     });
-    if (selected("bot_maintenance") === "monthly") { monthly = pricing.botMonthly; options.push("月額保守"); }
-    else options.push("保守なし");
+    if (selected("bot_maintenance") === "monthly") {
+      monthly = pricing.botMonthly;
+      options.push("月額保守");
+    } else options.push("保守なし");
   }
 
   if (service === "design") {
@@ -129,24 +139,50 @@ function calculateEstimate() {
     }
   }
 
-  return { service, serviceName: serviceNames[service], options, additions, initial, monthly, total: initial, requiresQuote };
+  return {
+    service,
+    serviceName: serviceNames[service],
+    options,
+    additions,
+    initial,
+    monthly,
+    total: initial,
+    requiresQuote,
+  };
 }
 
 function updateEstimate() {
   const data = calculateEstimate();
   document.querySelector("#estimateService").textContent = data.serviceName;
-  document.querySelector("#estimateLines").innerHTML = [...data.options, ...data.additions.map(item => `追加：${item}`)]
-    .map((item, index) => `<div class="estimate-line"><span>${index + 1}</span><span>${item}</span></div>`).join("");
-  document.querySelector("#initialPrice").textContent = data.requiresQuote ? "別途見積り" : yen(data.initial);
+  document.querySelector("#estimateLines").innerHTML = [
+    ...data.options,
+    ...data.additions.map((item) => `追加：${item}`),
+  ]
+    .map(
+      (item, index) =>
+        `<div class="estimate-line"><span>${index + 1}</span><span>${item}</span></div>`,
+    )
+    .join("");
+  document.querySelector("#initialPrice").textContent = data.requiresQuote
+    ? "別途見積り"
+    : yen(data.initial);
   document.querySelector("#monthlyPrice").textContent = yen(data.monthly, true);
-  document.querySelector("#totalPrice").textContent = data.requiresQuote ? "別途見積り" : yen(data.total);
+  document.querySelector("#totalPrice").textContent = data.requiresQuote
+    ? "別途見積り"
+    : yen(data.total);
   document.querySelector("#hiddenService").value = data.serviceName;
   document.querySelector("#hiddenOptions").value = data.options.join(" / ");
-  document.querySelector("#hiddenEstimate").value = data.requiresQuote ? "別途見積り" : yen(data.initial);
+  document.querySelector("#hiddenEstimate").value = data.requiresQuote
+    ? "別途見積り"
+    : yen(data.initial);
   document.querySelector("#hiddenMonthly").value = yen(data.monthly, true);
   // Future Stripe integration point: this versioned JSON can be posted to a server
   // that creates a Stripe Invoice and returns a hosted payment link.
-  document.querySelector("#hiddenJson").value = JSON.stringify({ version: 1, currency: "JPY", ...data });
+  document.querySelector("#hiddenJson").value = JSON.stringify({
+    version: 1,
+    currency: "JPY",
+    ...data,
+  });
 }
 
 function updateConditionalFields() {
@@ -165,29 +201,39 @@ function updateConditionalFields() {
 
 function switchService() {
   const active = selected("service_type") || "web";
-  document.querySelectorAll(".service-panel").forEach(panel => {
+  document.querySelectorAll(".service-panel").forEach((panel) => {
     const show = panel.dataset.panel === active;
     panel.hidden = !show;
     panel.classList.toggle("active", show);
-    panel.querySelectorAll("input, textarea, select").forEach(control => { control.disabled = !show; });
+    panel.querySelectorAll("input, textarea, select").forEach((control) => {
+      control.disabled = !show;
+    });
   });
   updateConditionalFields();
   updateEstimate();
 }
 
-form.addEventListener("input", event => {
+form.addEventListener("input", (event) => {
   if (event.target.matches('[name="service_type"]')) switchService();
-  else { updateConditionalFields(); updateEstimate(); }
+  else {
+    updateConditionalFields();
+    updateEstimate();
+  }
 });
-form.addEventListener("change", () => { updateConditionalFields(); updateEstimate(); });
+form.addEventListener("change", () => {
+  updateConditionalFields();
+  updateEstimate();
+});
 
-document.querySelectorAll("[data-step]").forEach(button => button.addEventListener("click", () => {
-  const input = document.querySelector(`#${button.dataset.target}`);
-  input.value = String(Number(input.value || 0) + Number(button.dataset.step));
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-}));
+document.querySelectorAll("[data-step]").forEach((button) =>
+  button.addEventListener("click", () => {
+    const input = document.querySelector(`#${button.dataset.target}`);
+    input.value = String(Number(input.value || 0) + Number(button.dataset.step));
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  }),
+);
 
-form.addEventListener("submit", event => {
+form.addEventListener("submit", (event) => {
   updateEstimate();
   if (!form.checkValidity()) {
     event.preventDefault();
@@ -201,23 +247,54 @@ menuButton.addEventListener("click", () => {
   menuButton.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
   document.body.classList.toggle("menu-open", open);
 });
-nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-  nav.classList.remove("open"); menuButton.setAttribute("aria-expanded", "false"); document.body.classList.remove("menu-open");
-}));
-document.addEventListener("keydown", event => {
+nav.querySelectorAll("a").forEach((link) =>
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
+  }),
+);
+document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && nav.classList.contains("open")) {
-    nav.classList.remove("open"); menuButton.setAttribute("aria-expanded", "false"); document.body.classList.remove("menu-open"); menuButton.focus();
+    nav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
+    menuButton.focus();
   }
 });
 
-const revealTargets = document.querySelectorAll(".service-select > *, .service-panel > *, .customer-section > *, .estimate");
+const revealTargets = document.querySelectorAll(
+  ".service-select > *, .service-panel > *, .customer-section > *, .estimate",
+);
 if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  revealTargets.forEach(el => el.classList.add("reveal"));
-  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); }
-  }), { threshold: 0.08, rootMargin: "0px 0px -30px" });
-  revealTargets.forEach(el => observer.observe(el));
+  revealTargets.forEach((el) => el.classList.add("reveal"));
+  const observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+    { threshold: 0.08, rootMargin: "0px 0px -30px" },
+  );
+  revealTargets.forEach((el) => observer.observe(el));
 }
 
 switchService();
 
+const transitionPanel = document.querySelector(".page-transition");
+if (transitionPanel) {
+  transitionPanel.classList.add("enter");
+  setTimeout(() => transitionPanel.classList.remove("enter"), 1250);
+  document.querySelectorAll("a[href]").forEach((link) =>
+    link.addEventListener("click", (event) => {
+      const url = new URL(link.href, location.href);
+      if (link.target === "_blank" || url.origin !== location.origin) return;
+      event.preventDefault();
+      transitionPanel.classList.add("leave");
+      setTimeout(() => (location.href = link.href), 1050);
+    }),
+  );
+  addEventListener("pageshow", () => transitionPanel.classList.remove("leave"));
+}
