@@ -86,6 +86,13 @@ button {
 /* =========================================================
    Initial 3D title intro
    ========================================================= */
+html.intro-pending,
+html.intro-pending body {
+  background: #0d0d0d;
+}
+html.intro-pending body > :not(.site-intro) {
+  visibility: hidden;
+}
 body.intro-active {
   overflow: hidden;
 }
@@ -108,15 +115,7 @@ body.intro-active {
   animation: intro-leave 0.8s var(--ease) both;
 }
 .site-intro__grid {
-  position: absolute;
-  inset: -40%;
-  background-image:
-    linear-gradient(rgba(244, 242, 237, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 242, 237, 0.08) 1px, transparent 1px);
-  background-size: 74px 74px;
-  transform: rotateX(68deg) translateY(25%) translateZ(-180px);
-  transform-origin: center;
-  animation: intro-grid 2.2s ease-out both;
+  display: none;
 }
 .site-intro__beam {
   position: absolute;

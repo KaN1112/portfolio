@@ -7,12 +7,15 @@ function initSiteIntro() {
 
   try {
     alreadyShown = sessionStorage.getItem("kan-intro-shown") === "true";
-    sessionStorage.setItem("kan-intro-shown", "true");
   } catch {
     // Continue without storage when the browser blocks sessionStorage.
   }
 
-  if (alreadyShown) return;
+  if (alreadyShown) {
+    document.documentElement.classList.remove("intro-pending");
+    document.documentElement.style.background = "";
+    return;
+  }
 
   const intro = document.createElement("div");
   intro.className = "site-intro";
@@ -30,7 +33,7 @@ function initSiteIntro() {
       <div class="site-intro__title" data-text="KaN's Portfolio">
         <span>KaN's</span><span>Portfolio</span>
       </div>
-      <p class="site-intro__caption">TYPOGRAPHY / DEPTH / MOTION</p>
+      <p class="site-intro__caption">Web Create / Bot Create / Thumbnail Create</p>
     </div>
     <div class="site-intro__progress" aria-hidden="true"><span></span></div>
   `;
@@ -40,8 +43,15 @@ function initSiteIntro() {
 
   window.setTimeout(() => intro.classList.add("is-leaving"), 2300);
   window.setTimeout(() => {
+    try {
+      sessionStorage.setItem("kan-intro-shown", "true");
+    } catch {
+      // Continue when storage is unavailable.
+    }
     intro.remove();
     document.body.classList.remove("intro-active");
+    document.documentElement.classList.remove("intro-pending");
+    document.documentElement.style.background = "";
   }, 3200);
 }
 
