@@ -1592,10 +1592,14 @@ body:not(.subpage):not(.request-page) header {
 /* Keep Japanese display headings on intentional line breaks only. */
 .hero h1 {
   font-size: clamp(60px, 9vw, 148px);
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 800;
   line-height: 0.86;
   white-space: nowrap;
 }
 footer h2 {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 800;
   white-space: nowrap;
 }
 @media (max-width: 600px) {
