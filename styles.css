@@ -1591,7 +1591,7 @@ body:not(.subpage):not(.request-page) header {
 
 /* Keep Japanese display headings on intentional line breaks only. */
 .hero h1 {
-  font-size: clamp(56px, 8vw, 128px);
+  font-size: clamp(60px, 9vw, 148px);
   line-height: 0.86;
   white-space: nowrap;
 }
@@ -1600,11 +1600,14 @@ footer h2 {
 }
 @media (max-width: 600px) {
   .hero h1 {
-    font-size: 9.4vw;
+    font-size: 10vw;
     line-height: 0.95;
   }
   footer h2 {
     font-size: clamp(23px, 6.8vw, 34px);
     line-height: 0.95;
+  }
+  footer h2:has(br) {
+    font-size: clamp(30px, 8.5vw, 38px);
   }
 }
