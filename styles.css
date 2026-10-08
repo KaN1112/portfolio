@@ -1106,12 +1106,7 @@ dialog h2 {
   position: relative;
 }
 .placeholder-panel:after {
-  content: "REPLACEMENT AREA";
-  position: absolute;
-  bottom: 18px;
-  right: 18px;
-  font-size: 9px;
-  color: var(--orange);
+  content: none;
 }
 @media (pointer: fine) and (min-width: 900px) {
   .cursor {
