@@ -1705,10 +1705,14 @@ header {
 .hero h1 {
   max-width: 1220px;
   margin: clamp(38px, 7vh, 82px) 0;
+  line-height: 1.04;
   transform: none;
   transition: none;
   text-shadow: none;
   letter-spacing: -0.065em;
+}
+footer h2 {
+  line-height: 1.12;
 }
 .eyebrow,
 .scroll,
@@ -1894,8 +1898,12 @@ header {
   .hero h1 {
     margin: 42px 0;
     font-size: clamp(32px, 8.6vw, 40px);
-    line-height: 1;
+    line-height: 1.12;
     white-space: nowrap;
+  }
+  footer h2,
+  footer h2:has(br) {
+    line-height: 1.16;
   }
   .section-head h2 {
     max-width: 100%;

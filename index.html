@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" class="intro-pending" style="background: #0d0d0d">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,27 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      html.intro-pending,
-      html.intro-pending body {
-        background: #0d0d0d !important;
-      }
-      html.intro-pending body > :not(.site-intro) {
-        visibility: hidden !important;
-      }
-    </style>
-    <script>
-      try {
-        if (sessionStorage.getItem("kan-intro-shown") === "true") {
-          document.documentElement.classList.remove("intro-pending");
-          document.documentElement.style.background = "";
-        }
-      } catch {
-        document.documentElement.classList.add("intro-pending");
-      }
-    </script>
-    <link rel="stylesheet" href="styles.css?v=20261009-1" />
-    <script src="intro.js?v=20261009-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261009-2" />
     <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js" defer></script>
     <script src="script.js?v=20261009-1" defer></script>
   </head>
@@ -53,7 +33,7 @@
       <nav id="nav" aria-label="メインナビゲーション">
         <a href="#works">Works</a><a href="thumbnail.html">Thumbnail</a
         ><a href="others.html">Others</a><a href="about.html">About</a
-        ><a href="request.html">Request</a><a href="consultation.html">Consult</a>
+        ><a href="https://kan-creative-request-vercel.vercel.app/">Request</a><a href="consultation.html">Consult</a>
       </nav>
     </header>
 
@@ -235,7 +215,7 @@
           <h2><span>あなたの活動を、一緒につくる。</span></h2>
           <p>制作依頼とご相談の窓口を分けています。</p>
           <div class="contact-routes">
-            <a href="request.html"
+            <a href="https://kan-creative-request-vercel.vercel.app/"
               ><small>制作依頼・料金確認</small><b>制作を依頼する</b
               ><span>料金シミュレーターから　→</span></a
             ><a href="consultation.html"
