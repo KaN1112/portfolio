@@ -116,11 +116,6 @@ function initPointer() {
   addEventListener("pointermove", (e) => {
     state.mouse.x = (e.clientX / innerWidth) * 2 - 1;
     state.mouse.y = (e.clientY / innerHeight) * 2 - 1;
-    const hero = $(".hero h1");
-    if (hero && !state.reduced && !state.mobile) {
-      hero.style.setProperty("--ry", `${state.mouse.x * 2.2}deg`);
-      hero.style.setProperty("--rx", `${-state.mouse.y * 1.4}deg`);
-    }
     const cursor = $(".cursor");
     if (cursor) {
       cursor.style.left = `${e.clientX}px`;
@@ -233,8 +228,6 @@ initPerformanceMode();
 initMenu();
 initHeroScene();
 initPointer();
-initProjectTilt();
 initWorkFilters();
 initLightbox();
 initScrollAnimations();
-initPageTransitions();

@@ -683,17 +683,6 @@
     font-size: 27px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .service-panel,
-  .conditional-field {
-    animation: none;
-  }
-  .request-submit,
-  .service-tabs span,
-  .capture img {
-    transition: none;
-  }
-}
 
 /* =========================================================
    Portfolio design alignment
@@ -890,5 +879,129 @@
   }
   .step-heading h2 {
     font-size: 35px;
+  }
+}
+
+/* Final cascade for form usability. */
+.request-hero::after {
+  content: none;
+}
+.service-select,
+.estimator-layout {
+  width: min(100%, 1540px);
+  margin-inline: auto;
+}
+.service-tabs {
+  gap: 10px;
+  border: 0;
+  box-shadow: none;
+}
+.service-tabs span {
+  min-height: 104px;
+  border: 1px solid var(--request-line);
+}
+.service-tabs input:checked + span {
+  border-color: var(--request-black);
+  box-shadow: inset 0 -4px var(--request-orange);
+}
+.estimator-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 370px);
+  gap: clamp(36px, 5vw, 76px);
+}
+.service-panel,
+.customer-section {
+  padding-right: 0;
+  padding-left: 0;
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.customer-section {
+  border-top: 1px solid var(--request-black);
+}
+.option-group legend {
+  border-bottom-width: 1px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+.choice-card,
+.check-card,
+.quantity-row {
+  padding-right: 14px;
+  padding-left: 14px;
+  transition: background 0.18s ease;
+}
+.choice-card:hover,
+.check-card:hover,
+.quantity-row:hover {
+  background: rgba(255, 255, 255, 0.64);
+  transform: none;
+}
+.choice-card:has(input:checked),
+.check-card:has(input:checked) {
+  background: #fff;
+  box-shadow: inset 4px 0 var(--request-orange);
+}
+.design-grid {
+  gap: 10px;
+  border: 0;
+}
+.design-choice span {
+  border: 1px solid var(--request-line);
+}
+.estimate {
+  top: 92px;
+  border-top-width: 4px;
+  box-shadow: none;
+}
+.customer-grid {
+  gap: 24px 20px;
+}
+.customer-grid input,
+.customer-grid textarea {
+  border-radius: 2px;
+}
+.customer-grid input:focus,
+.customer-grid textarea:focus {
+  box-shadow: 0 0 0 3px rgba(240, 90, 40, 0.12);
+}
+.request-submit:hover {
+  transform: none;
+}
+@media (max-width: 820px) {
+  .service-select,
+  .estimator-layout {
+    width: 100%;
+  }
+  .estimator-layout {
+    display: flex;
+  }
+  .service-panel,
+  .customer-section {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .estimate {
+    box-shadow: none;
+  }
+}
+@media (max-width: 560px) {
+  .request-hero h1 {
+    max-width: 100%;
+    font-size: clamp(32px, 8.8vw, 40px);
+    line-height: 1.05;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .request-hero h1 em {
+    display: block;
+    white-space: normal;
+    word-break: break-all;
+  }
+  .request-hero-grid > div {
+    width: 100%;
+    margin-left: 0;
   }
 }

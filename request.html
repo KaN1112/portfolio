@@ -17,16 +17,16 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260819-5" />
-    <link rel="stylesheet" href="request.css" />
-    <script src="intro.js" defer></script>
-    <script src="request.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261009-1" />
+    <link rel="stylesheet" href="request.css?v=20261009-1" />
+    <script src="intro.js?v=20261009-1" defer></script>
+    <script src="request.js?v=20261009-1" defer></script>
   </head>
   <body class="request-page">
-    <div class="page-transition" aria-hidden="true"><span>KaN / LOADING</span></div>
+    <div class="page-transition" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <header>
-      <a class="logo" href="index.html"><b>KaN's Portfolio</b><small>CREATIVE UNIT</small></a>
+      <a class="logo" href="index.html"><b>KaN's Portfolio</b><small>WEB / BOT / DESIGN</small></a>
       <button class="menu" aria-expanded="false" aria-controls="nav" aria-label="メニューを開く">
         <span>MENU</span>
       </button>
@@ -40,12 +40,11 @@
 
     <main>
       <section class="request-hero">
-        <p class="label">REQUEST / ESTIMATOR</p>
+        <p class="label">制作依頼・料金確認</p>
         <div class="request-hero-grid">
           <h1>制作依頼<br><em>料金シミュレーター</em></h1>
           <div>
             <p>必要な内容を選ぶと、概算料金がその場で更新されます。</p>
-            <p class="request-code">ESTIMATE SYSTEM / 01</p>
           </div>
         </div>
       </section>
@@ -67,24 +66,24 @@
           <div class="step-heading">
             <span>01</span>
             <div>
-              <p class="label">SELECT SERVICE</p>
+              <p class="label">サービスを選択</p>
               <h2 id="serviceTitle">依頼するサービス</h2>
             </div>
           </div>
           <div class="service-tabs" role="radiogroup" aria-label="依頼サービス">
             <label
               ><input type="radio" name="service_type" value="web" checked /><span
-                ><b>Web制作</b><small>WEB DEVELOPMENT</small></span
+                ><b>Web制作</b><small>チーム・イベント・個人サイト</small></span
               ></label
             >
             <label
               ><input type="radio" name="service_type" value="bot" /><span
-                ><b>Discord Bot制作</b><small>BOT DEVELOPMENT</small></span
+                ><b>Discord Bot制作</b><small>運営・管理機能の開発</small></span
               ></label
             >
             <label
               ><input type="radio" name="service_type" value="design" /><span
-                ><b>デザイン制作</b><small>GRAPHIC DESIGN</small></span
+                ><b>デザイン制作</b><small>サムネイル・配信素材</small></span
               ></label
             >
           </div>
@@ -96,7 +95,7 @@
               <div class="step-heading">
                 <span>02</span>
                 <div>
-                  <p class="label">WEB OPTIONS</p>
+                  <p class="label">Web制作の内容</p>
                   <h2 id="webTitle">Web制作</h2>
                 </div>
               </div>
@@ -218,7 +217,7 @@
               <div class="step-heading">
                 <span>02</span>
                 <div>
-                  <p class="label">BOT OPTIONS</p>
+                  <p class="label">Discord Bot制作の内容</p>
                   <h2 id="botTitle">Discord Bot制作</h2>
                 </div>
               </div>
@@ -311,7 +310,7 @@
               <div class="step-heading">
                 <span>02</span>
                 <div>
-                  <p class="label">DESIGN OPTIONS</p>
+                  <p class="label">デザイン制作の内容</p>
                   <h2 id="designTitle">デザイン制作</h2>
                 </div>
               </div>
@@ -368,7 +367,7 @@
               <div class="step-heading">
                 <span>03</span>
                 <div>
-                  <p class="label">YOUR INFORMATION</p>
+                  <p class="label">お客様情報</p>
                   <h2 id="customerTitle">お客様情報</h2>
                 </div>
               </div>
@@ -433,7 +432,7 @@
           </div>
 
           <aside class="estimate" aria-live="polite" aria-atomic="true">
-            <p class="label">LIVE ESTIMATE</p>
+            <p class="label">選択内容から自動計算</p>
             <div class="estimate-head">
               <h2>概算見積もり</h2>
               <span id="estimateService">Web制作</span>

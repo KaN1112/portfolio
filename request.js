@@ -282,19 +282,3 @@ if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: re
 }
 
 switchService();
-
-const transitionPanel = document.querySelector(".page-transition");
-if (transitionPanel) {
-  transitionPanel.classList.add("enter");
-  setTimeout(() => transitionPanel.classList.remove("enter"), 1250);
-  document.querySelectorAll("a[href]").forEach((link) =>
-    link.addEventListener("click", (event) => {
-      const url = new URL(link.href, location.href);
-      if (link.target === "_blank" || url.origin !== location.origin) return;
-      event.preventDefault();
-      transitionPanel.classList.add("leave");
-      setTimeout(() => (location.href = link.href), 1050);
-    }),
-  );
-  addEventListener("pageshow", () => transitionPanel.classList.remove("leave"));
-}
