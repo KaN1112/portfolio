@@ -386,7 +386,7 @@ body.intro-active {
 .motion-showcase { padding: clamp(150px, 16vw, 220px) 4vw clamp(90px, 10vw, 150px); }
 .motion-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 5vw; width: 100%; margin-bottom: clamp(70px, 8vw, 120px); }
 .motion-heading h1 { flex: 0 1 auto; min-width: 0; margin: 0; font-size: min(4.45vw, 76px); line-height: 1; letter-spacing: -0.055em; white-space: nowrap; word-break: keep-all; writing-mode: horizontal-tb; }
-.motion-heading > p:last-child { flex: 0 0 min(330px, 27vw); color: var(--muted); line-height: 1.9; }
+.motion-heading > p:last-child { flex: 0 0 auto; color: var(--muted); font-size: clamp(10px, 1vw, 16px); line-height: 1.9; white-space: nowrap; word-break: keep-all; }
 .motion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .motion-grid article { min-width: 0; }
 .motion-grid video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #080808; border: 1px solid rgba(244, 242, 237, 0.22); }
@@ -398,7 +398,7 @@ body.intro-active {
 @media (max-width: 1250px) {
   .motion-heading { display: block; }
   .motion-heading h1 { font-size: 6.2vw; }
-  .motion-heading > p:last-child { width: min(560px, 100%); margin-top: 28px; }
+  .motion-heading > p:last-child { width: auto; margin-top: 28px; font-size: clamp(9px, 1.8vw, 15px); }
 }
 @media (max-width: 700px) {
   .motion-heading h1 { font-size: 5.6vw; }
