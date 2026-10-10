@@ -702,7 +702,7 @@
 }
 .request-guide-hero h1 {
   margin: 22px 0 0;
-  font: 700 clamp(72px, 11vw, 160px) / 0.86 "Barlow Condensed", sans-serif;
+  font: 800 clamp(72px, 9vw, 140px) / 0.9 "Noto Sans JP", sans-serif;
   letter-spacing: -0.055em;
 }
 .request-guide-hero > div > p,
@@ -719,14 +719,14 @@
 }
 .request-guide-intro {
   display: grid;
-  grid-template-columns: 0.42fr 1.58fr 0.72fr;
+  grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.72fr);
   gap: 4vw;
   align-items: start;
 }
 .request-guide-intro h2,
 .request-external h2 {
   margin: 0;
-  font-size: clamp(36px, 4.1vw, 66px);
+  font-size: clamp(36px, 3.7vw, 62px);
   line-height: 1.14;
   letter-spacing: -0.04em;
 }
@@ -785,6 +785,8 @@
   .request-guide-intro,
   .request-external { grid-template-columns: 1fr; }
   .request-guide-hero h1 { font-size: clamp(64px, 21vw, 118px); }
+  .request-guide-hero > div > p br,
+  .request-guide-intro > p:last-child br { display: none; }
   .request-steps { grid-template-columns: 1fr; }
   .request-steps li { min-height: 190px; }
   .request-services li { grid-template-columns: 1fr; gap: 8px; }
