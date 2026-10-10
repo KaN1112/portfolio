@@ -695,9 +695,9 @@
 }
 .request-guide-hero > div {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+  grid-template-columns: 8fr 4fr;
   align-items: end;
-  gap: 7vw;
+  gap: 30px;
 }
 .request-guide-hero h1 {
   margin: 25px 0 0;
@@ -711,6 +711,8 @@
 }
 .request-guide-hero > div > p {
   max-width: 520px;
+  font-size: 12px;
+  line-height: 1.8;
   text-wrap: pretty;
 }
 .fixed-lines span {
