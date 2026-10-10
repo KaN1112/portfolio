@@ -786,8 +786,17 @@
   .request-guide-intro,
   .request-external { grid-template-columns: 1fr; }
   .request-guide-hero h1 { font-size: clamp(64px, 21vw, 118px); }
+  .request-guide-hero > div > p,
+  .request-guide-intro > p:last-child {
+    width: 100%;
+    max-width: none;
+    font-size: clamp(12px, 2.15vw, 16px);
+    line-height: 2;
+  }
   .request-guide-hero > div > p br,
-  .request-guide-intro > p:last-child br { display: none; }
+  .request-guide-intro > p:last-child br {
+    display: block;
+  }
   .request-steps { grid-template-columns: 1fr; }
   .request-steps li { min-height: 190px; }
   .request-services li { grid-template-columns: 1fr; gap: 8px; }
