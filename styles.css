@@ -356,6 +356,31 @@ body.intro-active {
 .future-work > a { display: inline-block; margin-top: 36px; color: var(--orange); font-weight: 700; }
 .contact-routes { grid-template-columns: 1fr; }
 
+/* Discord server portfolio */
+.server-showcase { padding: clamp(150px, 16vw, 220px) 5vw clamp(90px, 10vw, 150px); }
+.server-heading { display: grid; grid-template-columns: minmax(120px, 0.35fr) minmax(520px, 1.4fr) minmax(250px, 0.55fr); gap: 4vw; align-items: end; margin-bottom: clamp(70px, 9vw, 130px); }
+.server-heading h1 { margin: 0; font-size: clamp(64px, 7.6vw, 122px); line-height: 0.88; letter-spacing: -0.055em; }
+.server-heading h1 span { display: block; white-space: nowrap; }
+.server-heading > p:last-child { color: var(--muted); line-height: 1.9; }
+.server-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(50px, 6vw, 90px) 24px; }
+.server-grid article { min-width: 0; display: flex; flex-direction: column; }
+.server-grid img { display: block; width: 100%; aspect-ratio: 1.25 / 1; object-fit: contain; object-position: center bottom; background: #151515; border: 1px solid rgba(244, 242, 237, 0.2); }
+.server-meta { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 22px 0 18px; border-top: 3px solid var(--orange); }
+.server-meta span { color: var(--orange); font: 700 13px "Barlow Condensed", sans-serif; letter-spacing: 0.12em; }
+.server-meta h2 { margin: 0; font-size: clamp(23px, 2.2vw, 36px); line-height: 1.15; letter-spacing: -0.025em; }
+.server-join { margin-top: auto; padding: 16px 18px; display: flex; justify-content: space-between; gap: 20px; color: var(--paper); border: 1px solid rgba(244, 242, 237, 0.4); font-weight: 700; transition: color 0.2s ease, background 0.2s ease; }
+.server-join:hover { color: #111; background: var(--orange); border-color: var(--orange); }
+.server-back { display: inline-block; margin-top: 70px; color: var(--orange); font-weight: 700; }
+@media (max-width: 1100px) {
+  .server-heading { grid-template-columns: 1fr; align-items: start; }
+  .server-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 650px) {
+  .server-heading h1 { font-size: clamp(48px, 15vw, 76px); }
+  .server-grid { grid-template-columns: 1fr; }
+  .server-grid img { aspect-ratio: auto; }
+}
+
 /* Motion portfolio */
 .motion-showcase { padding: clamp(150px, 16vw, 220px) 4vw clamp(90px, 10vw, 150px); }
 .motion-heading { display: grid; grid-template-columns: minmax(120px, 0.35fr) minmax(620px, 1.65fr) minmax(250px, 0.55fr); gap: 3.5vw; align-items: end; margin-bottom: clamp(70px, 8vw, 120px); }
