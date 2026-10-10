@@ -689,9 +689,8 @@
   background: var(--request-paper);
 }
 .request-guide-hero {
-  min-height: 56vh;
-  padding: clamp(140px, 14vw, 190px) 6vw clamp(70px, 8vw, 110px);
-  border-bottom: 1px solid var(--request-line);
+  padding: clamp(100px, 14vw, 190px) var(--pad) 70px;
+  border-bottom: 1px solid;
   background: var(--request-paper);
 }
 .request-guide-hero > div {
