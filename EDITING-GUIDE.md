@@ -10,7 +10,7 @@
 | `about.html` | About、How I Work |
 | `thumbnail.html` | サムネイル実績 |
 | `others.html` | その他の実績 |
-| `request.html` | 制作相談・料金確認・依頼の案内と外部Request Webへの入口 |
+| `request.html` | 制作相談・料金確認・依頼の案内と外部ご依頼サイトへの入口 |
 | `consultation.html` | 旧相談URLからRequestへの統合案内 |
 | `opening-ending.html` | オープニング・エンディング制作（掲載準備中） |
 | `discord-server.html` | Discordサーバー制作（掲載準備中） |
@@ -49,7 +49,7 @@
 
 ### Requestについて
 
-`request.html` は案内ページです。料金シミュレーション・相談・依頼の受付は外部Request Webに統合しています。外部URLを変更する場合は、`request.html` の「Request Webを開く」リンクを変更してください。
+`request.html` は案内ページです。料金シミュレーション・相談・依頼の受付は外部ご依頼サイトに統合しています。外部URLを変更する場合は、`request.html` の「ご依頼サイトを開く」リンクを変更してください。
 
 ## コードを再整形する
 
