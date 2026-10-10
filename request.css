@@ -702,7 +702,7 @@
 }
 .request-guide-hero h1 {
   margin: 22px 0 0;
-  font: 800 clamp(72px, 9vw, 140px) / 0.9 "Noto Sans JP", sans-serif;
+  font: 700 clamp(72px, 9vw, 140px) / 0.82 "Barlow Condensed", sans-serif;
   letter-spacing: -0.055em;
 }
 .request-guide-hero > div > p,
