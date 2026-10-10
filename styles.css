@@ -346,6 +346,19 @@ body.intro-active {
     transform: none;
   }
 }
+
+/* New service placeholders */
+.service-entry a { display: block; color: inherit; }
+.service-entry .placeholder-panel { flex-direction: column; gap: 18px; text-align: center; }
+.service-entry .placeholder-panel span { font: 700 clamp(44px, 7vw, 100px) "Barlow Condensed", sans-serif; }
+.service-entry .placeholder-panel strong { color: var(--orange); font-size: clamp(15px, 1.5vw, 22px); }
+.future-work { min-height: 88vh; padding: clamp(160px, 18vw, 230px) 6vw 100px; }
+.future-work h1 { max-width: 1200px; margin: 20px 0 clamp(70px, 9vw, 130px); font-size: clamp(58px, 10vw, 160px); line-height: 0.92; letter-spacing: -0.055em; }
+.future-work > div { min-height: 330px; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--line); background: #1a1a1a; }
+.future-work > div strong { font: 700 clamp(50px, 9vw, 130px) "Barlow Condensed", sans-serif; }
+.future-work > div p { color: var(--muted); }
+.future-work > a { display: inline-block; margin-top: 36px; color: var(--orange); font-weight: 700; }
+.contact-routes { grid-template-columns: 1fr; }
 header {
   height: 84px;
   padding: 0 var(--pad);
@@ -1330,7 +1343,7 @@ dialog h2 {
   background: radial-gradient(circle at 75% 35%, #4b2518, transparent 28%), var(--black);
 }
 
-/* Works: consistent rhythm and uncropped Discord captures */
+/* Works: consistent rhythm */
 .works .grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(64px, 7vw, 110px) 24px;
@@ -1341,12 +1354,6 @@ dialog h2 {
   grid-column: auto;
   margin-top: 0;
   min-width: 0;
-}
-.works .art.bot-shot {
-  background: #242428;
-}
-.works .art.bot-shot img {
-  object-fit: contain;
 }
 @media (max-width: 900px) {
   .works .grid {

@@ -684,6 +684,109 @@
   }
 }
 
+/* Request information page */
+.request-guide-page main {
+  background: var(--request-paper);
+}
+.request-guide-hero {
+  min-height: 64vh;
+  padding: clamp(150px, 18vw, 230px) 6vw clamp(70px, 9vw, 120px);
+  border-bottom: 1px solid var(--request-line);
+  background: var(--request-paper);
+}
+.request-guide-hero > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+  align-items: end;
+  gap: 7vw;
+}
+.request-guide-hero h1 {
+  margin: 22px 0 0;
+  font: 700 clamp(92px, 18vw, 270px) / 0.78 "Barlow Condensed", sans-serif;
+  letter-spacing: -0.055em;
+}
+.request-guide-hero > div > p,
+.request-guide-intro > p:last-child,
+.request-external p {
+  line-height: 2;
+}
+.request-guide {
+  padding: clamp(80px, 10vw, 150px) 6vw;
+}
+.request-guide-intro {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr 0.8fr;
+  gap: 4vw;
+  align-items: start;
+}
+.request-guide-intro h2,
+.request-external h2 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 78px);
+  line-height: 1.14;
+  letter-spacing: -0.04em;
+}
+.request-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: clamp(70px, 9vw, 130px) 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--request-black);
+  border-left: 1px solid var(--request-black);
+}
+.request-steps li {
+  min-height: 260px;
+  padding: 28px;
+  border-right: 1px solid var(--request-black);
+  border-bottom: 1px solid var(--request-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.request-steps li > span { color: var(--request-orange); font: 700 18px "Barlow Condensed", sans-serif; }
+.request-steps b { display: block; font-size: clamp(22px, 2.2vw, 34px); }
+.request-steps p { margin: 12px 0 0; line-height: 1.8; }
+.request-services ul { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--request-line); }
+.request-services li { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; padding: 24px 0; border-bottom: 1px solid var(--request-line); }
+.request-services span { font: 600 18px "Barlow Condensed", sans-serif; text-transform: uppercase; }
+.request-external {
+  margin-top: clamp(80px, 10vw, 150px);
+  padding: clamp(35px, 5vw, 70px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 50px;
+  color: var(--request-paper);
+  background: var(--request-black);
+  border-top: 7px solid var(--request-orange);
+}
+.request-external a,
+.request-legacy a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  min-width: 280px;
+  padding: 22px 26px;
+  color: var(--request-black);
+  background: var(--request-orange);
+  font-weight: 800;
+}
+.request-legacy { min-height: 78vh; padding: clamp(170px, 20vw, 280px) 6vw 100px; }
+.request-legacy h1 { max-width: 1000px; margin: 20px 0 30px; font-size: clamp(48px, 7vw, 110px); line-height: 1.05; }
+.request-legacy > p:not(.label) { margin-bottom: 40px; }
+@media (max-width: 800px) {
+  .request-guide-hero > div,
+  .request-guide-intro,
+  .request-external { grid-template-columns: 1fr; }
+  .request-guide-hero h1 { font-size: clamp(82px, 28vw, 150px); }
+  .request-steps { grid-template-columns: 1fr; }
+  .request-steps li { min-height: 190px; }
+  .request-services li { grid-template-columns: 1fr; gap: 8px; }
+  .request-external a { min-width: 0; width: 100%; }
+}
+
 /* =========================================================
    Portfolio design alignment
    Keeps the estimator structure and behavior unchanged.

@@ -6,17 +6,17 @@
 
 | ファイル | 内容 |
 | --- | --- |
-| `index.html` | トップ、制作実績、依頼・相談への入口 |
+| `index.html` | トップ、制作実績、Requestへの入口 |
 | `about.html` | About、How I Work |
 | `thumbnail.html` | サムネイル実績 |
 | `others.html` | その他の実績 |
-| `request.html` | 料金シミュレーター、制作依頼フォーム |
-| `consultation.html` | 相談専用フォーム |
+| `request.html` | 制作相談・料金確認・依頼の案内と外部Request Webへの入口 |
+| `consultation.html` | 旧相談URLからRequestへの統合案内 |
+| `opening-ending.html` | オープニング・エンディング制作（掲載準備中） |
+| `discord-server.html` | Discordサーバー制作（掲載準備中） |
 | `styles.css` | 全ページ共通のデザイン |
-| `request.css` | 料金シミュレーター専用デザイン |
-| `intro.js` | 初回表示の3Dタイトルイントロ |
+| `request.css` | Request案内ページ専用デザイン |
 | `script.js` | メニュー、3D、実績フィルター、画像拡大など |
-| `request.js` | 料金計算と依頼ページの操作 |
 
 ## よく編集する場所
 
@@ -25,7 +25,6 @@
 `index.html` の `class="grid"` 内にある `article class="work"` が1件分です。
 
 - `data-type="web"`：Webフィルターに表示
-- `data-type="bot"`：Discord Botフィルターに表示
 - `<img src="...">`：表示画像
 - `<h3>`：実績名
 - `<p>`：説明
@@ -35,7 +34,7 @@
 
 ### 画像を変更する
 
-画像は `assets/` に保存し、HTMLの `src="assets/ファイル名"` を変更します。Bot画像には `bot-shot` クラスを付けると、トリミングせず全面表示されます。
+画像は `assets/` に保存し、HTMLの `src="assets/ファイル名"` を変更します。
 
 ### 色を変更する
 
@@ -48,13 +47,9 @@
 --paper: #f4f2ed;
 ```
 
-### 料金を変更する
+### Requestについて
 
-料金計算は `request.js` 冒頭の `pricing` にまとまっています。画面に直接書かれている料金表記も `request.html` で合わせて変更してください。
-
-### フォームについて
-
-制作依頼は `request.html`、相談は `consultation.html` です。どちらも現在のFormspree送信先を使用しています。`action`、`method`、各入力欄の `name` は送信内容に影響するため、目的がない限り変更しないでください。
+`request.html` は案内ページです。料金シミュレーション・相談・依頼の受付は外部Request Webに統合しています。外部URLを変更する場合は、`request.html` の「Request Webを開く」リンクを変更してください。
 
 ## コードを再整形する
 
