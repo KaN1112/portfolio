@@ -701,9 +701,9 @@
   gap: 7vw;
 }
 .request-guide-hero h1 {
-  margin: 22px 0 0;
-  font: 700 clamp(72px, 9vw, 140px) / 0.82 "Barlow Condensed", sans-serif;
-  letter-spacing: -0.055em;
+  margin: 25px 0 0;
+  font: 600 clamp(52px, 11vw, 165px) / 0.76 "Barlow Condensed", sans-serif;
+  letter-spacing: -0.05em;
 }
 .request-guide-hero > div > p,
 .request-guide-intro > p:last-child,
@@ -713,6 +713,11 @@
 .request-guide-hero > div > p {
   max-width: 520px;
   text-wrap: pretty;
+}
+.fixed-lines span {
+  display: block;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 .request-guide {
   padding: clamp(80px, 10vw, 150px) 6vw;
@@ -785,22 +790,21 @@
   .request-guide-hero > div,
   .request-guide-intro,
   .request-external { grid-template-columns: 1fr; }
-  .request-guide-hero h1 { font-size: clamp(64px, 21vw, 118px); }
+  .request-guide-hero h1 { font-size: 11vw; }
   .request-guide-hero > div > p,
   .request-guide-intro > p:last-child {
     width: 100%;
     max-width: none;
-    font-size: clamp(12px, 2.15vw, 16px);
+    font-size: clamp(9px, 2.05vw, 16px);
     line-height: 2;
-  }
-  .request-guide-hero > div > p br,
-  .request-guide-intro > p:last-child br {
-    display: block;
   }
   .request-steps { grid-template-columns: 1fr; }
   .request-steps li { min-height: 190px; }
   .request-services li { grid-template-columns: 1fr; gap: 8px; }
   .request-external a { min-width: 0; width: 100%; }
+}
+@media (max-width: 600px) {
+  .request-guide-hero h1 { font-size: 14vw; }
 }
 
 /* =========================================================
