@@ -689,8 +689,8 @@
   background: var(--request-paper);
 }
 .request-guide-hero {
-  min-height: 64vh;
-  padding: clamp(150px, 18vw, 230px) 6vw clamp(70px, 9vw, 120px);
+  min-height: 56vh;
+  padding: clamp(140px, 14vw, 190px) 6vw clamp(70px, 8vw, 110px);
   border-bottom: 1px solid var(--request-line);
   background: var(--request-paper);
 }
@@ -702,7 +702,7 @@
 }
 .request-guide-hero h1 {
   margin: 22px 0 0;
-  font: 700 clamp(92px, 18vw, 270px) / 0.78 "Barlow Condensed", sans-serif;
+  font: 700 clamp(72px, 11vw, 160px) / 0.86 "Barlow Condensed", sans-serif;
   letter-spacing: -0.055em;
 }
 .request-guide-hero > div > p,
@@ -710,19 +710,23 @@
 .request-external p {
   line-height: 2;
 }
+.request-guide-hero > div > p {
+  max-width: 520px;
+  text-wrap: pretty;
+}
 .request-guide {
   padding: clamp(80px, 10vw, 150px) 6vw;
 }
 .request-guide-intro {
   display: grid;
-  grid-template-columns: 0.6fr 1.4fr 0.8fr;
+  grid-template-columns: 0.42fr 1.58fr 0.72fr;
   gap: 4vw;
   align-items: start;
 }
 .request-guide-intro h2,
 .request-external h2 {
   margin: 0;
-  font-size: clamp(38px, 5vw, 78px);
+  font-size: clamp(36px, 4.1vw, 66px);
   line-height: 1.14;
   letter-spacing: -0.04em;
 }
@@ -780,7 +784,7 @@
   .request-guide-hero > div,
   .request-guide-intro,
   .request-external { grid-template-columns: 1fr; }
-  .request-guide-hero h1 { font-size: clamp(82px, 28vw, 150px); }
+  .request-guide-hero h1 { font-size: clamp(64px, 21vw, 118px); }
   .request-steps { grid-template-columns: 1fr; }
   .request-steps li { min-height: 190px; }
   .request-services li { grid-template-columns: 1fr; gap: 8px; }
