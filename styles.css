@@ -358,9 +358,9 @@ body.intro-active {
 
 /* Discord server portfolio */
 .server-showcase { padding: clamp(150px, 16vw, 220px) 5vw clamp(90px, 10vw, 150px); }
-.server-heading { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, 0.55fr); gap: 5vw; align-items: end; margin-bottom: clamp(70px, 9vw, 130px); }
-.server-heading h1 { margin: 0; font-size: clamp(42px, 5.7vw, 94px); line-height: 0.92; letter-spacing: -0.055em; white-space: nowrap; }
-.server-heading > p:last-child { color: var(--muted); line-height: 1.9; }
+.server-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 5vw; width: 100%; margin-bottom: clamp(70px, 9vw, 130px); }
+.server-heading h1 { flex: 0 1 auto; min-width: 0; margin: 0; font-size: min(5.3vw, 90px); line-height: 1; letter-spacing: -0.055em; white-space: nowrap; word-break: keep-all; writing-mode: horizontal-tb; }
+.server-heading > p:last-child { flex: 0 0 min(330px, 27vw); color: var(--muted); line-height: 1.9; }
 .server-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(50px, 6vw, 90px) 24px; }
 .server-grid article { min-width: 0; display: flex; flex-direction: column; }
 .server-grid img { display: block; width: 100%; aspect-ratio: 1.25 / 1; object-fit: contain; object-position: center bottom; background: #151515; border: 1px solid rgba(244, 242, 237, 0.2); }
@@ -371,20 +371,21 @@ body.intro-active {
 .server-join:hover { color: #111; background: var(--orange); border-color: var(--orange); }
 .server-back { display: inline-block; margin-top: 70px; color: var(--orange); font-weight: 700; }
 @media (max-width: 1100px) {
-  .server-heading { grid-template-columns: 1fr; align-items: start; }
+  .server-heading { display: block; }
+  .server-heading > p:last-child { width: min(560px, 100%); margin-top: 28px; }
   .server-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 650px) {
-  .server-heading h1 { font-size: clamp(22px, 7vw, 42px); }
+  .server-heading h1 { font-size: 6.6vw; }
   .server-grid { grid-template-columns: 1fr; }
   .server-grid img { aspect-ratio: auto; }
 }
 
 /* Motion portfolio */
 .motion-showcase { padding: clamp(150px, 16vw, 220px) 4vw clamp(90px, 10vw, 150px); }
-.motion-heading { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, 0.55fr); gap: 5vw; align-items: end; margin-bottom: clamp(70px, 8vw, 120px); }
-.motion-heading h1 { margin: 0; font-size: clamp(36px, 4.75vw, 80px); line-height: 0.94; letter-spacing: -0.055em; white-space: nowrap; }
-.motion-heading > p:last-child { color: var(--muted); line-height: 1.9; }
+.motion-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 5vw; width: 100%; margin-bottom: clamp(70px, 8vw, 120px); }
+.motion-heading h1 { flex: 0 1 auto; min-width: 0; margin: 0; font-size: min(4.45vw, 76px); line-height: 1; letter-spacing: -0.055em; white-space: nowrap; word-break: keep-all; writing-mode: horizontal-tb; }
+.motion-heading > p:last-child { flex: 0 0 min(330px, 27vw); color: var(--muted); line-height: 1.9; }
 .motion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .motion-grid article { min-width: 0; }
 .motion-grid video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #080808; border: 1px solid rgba(244, 242, 237, 0.22); }
@@ -394,12 +395,12 @@ body.intro-active {
 .motion-back { display: inline-block; margin-top: 60px; color: var(--orange); font-weight: 700; }
 @media (max-width: 1100px) { .motion-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 55px 18px; } }
 @media (max-width: 1250px) {
-  .motion-heading { grid-template-columns: 1fr; align-items: start; }
-  .motion-heading h1 { font-size: clamp(38px, 7.5vw, 88px); }
+  .motion-heading { display: block; }
+  .motion-heading h1 { font-size: 6.2vw; }
+  .motion-heading > p:last-child { width: min(560px, 100%); margin-top: 28px; }
 }
 @media (max-width: 700px) {
-  .motion-heading { grid-template-columns: 1fr; }
-  .motion-heading h1 { font-size: clamp(18px, 5.8vw, 42px); }
+  .motion-heading h1 { font-size: 5.6vw; }
   .motion-grid { grid-template-columns: 1fr; }
 }
 
