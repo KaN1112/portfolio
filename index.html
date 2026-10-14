@@ -18,11 +18,11 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20261014-1" />
+    <link rel="stylesheet" href="styles.css?v=20261014-2" />
     <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-    <script src="script.js?v=20261014-2" defer></script>
+    <script src="script.js?v=20261014-3" defer></script>
   </head>
   <body>
     <div class="page-transition" aria-hidden="true"></div>
@@ -33,7 +33,7 @@
         <span>MENU</span>
       </button>
       <nav id="nav" aria-label="メインナビゲーション">
-        <a href="#top" aria-current="page">Home</a><a href="#works">Works</a><a href="thumbnail.html">Thumbnail</a
+        <a href="#top" aria-current="page">Home</a><a href="works.html">Works</a><a href="thumbnail.html">Thumbnail</a
         ><a href="others.html">Others</a><a href="about.html">About</a
         ><a href="request.html">Request</a>
       </nav>
@@ -48,9 +48,31 @@
         <aside>
           <p>チームサイト、サムネイル、映像素材。<br />@KaN_Stream4 のポートフォリオ。</p>
         </aside>
-        <small class="scroll">制作実績を見る ↓</small>
+        <a class="scroll" href="works.html">制作実績を見る →</a>
       </section>
 
+      <section class="home-profile" aria-labelledby="profileTitle">
+        <div class="home-profile__intro">
+          <p class="label">概要</p>
+          <h2 id="profileTitle">つくることを通して、<br />技術を身につける。</h2>
+          <div class="home-profile__copy">
+            <p>ポートフォリオをご覧頂きありがとうございます。</p>
+            <p>現在18歳、大学1年生で将来エンジニアを目指し日々勉強しております。</p>
+            <p>勉強の成果が生かせるWebサイト、Webアプリケーションはもちろん、YouTubeで活動をしていた経験もありますのでサムネイルや簡単な動画編集も可能となっております。<small>※動画編集は主にshortsになります。</small></p>
+            <p>ディスコードサーバー構築なども可能ですのでお気軽にお問い合わせください。</p>
+          </div>
+        </div>
+        <div class="home-skills" aria-labelledby="skillsTitle">
+          <div class="home-skills__head"><p class="label">スキル</p><h2 id="skillsTitle">SKILLS</h2></div>
+          <dl>
+            <div><dt><span>01</span>Programming</dt><dd>HTML、CSS、JavaScript、Python、C、C++（勉強中）、Java（今後勉強予定）</dd></div>
+            <div><dt><span>02</span>サムネイル・動画編集</dt><dd>CLIP STUDIO、Filmora13、Photoshop（練習中）、Premiere Pro（練習中）</dd></div>
+            <div><dt><span>03</span>Discordサーバー</dt><dd>コミュニティサーバー構築、Bot導入<small>※現在Botの制作は行っておりません。（特別な場合を除く）</small></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <template id="home-works-archive">
       <section class="works" id="works">
         <div class="section-head">
           <div>
@@ -210,6 +232,7 @@
           </article>
         </div>
       </section>
+      </template>
 
       <section class="commission" id="commission">
         <div>

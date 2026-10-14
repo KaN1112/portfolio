@@ -162,28 +162,6 @@ function initWorkFilters() {
   );
 }
 
-function initHomeSectionNav() {
-  const home = $("#top"),
-    works = $("#works"),
-    homeLink = $('#nav a[href="#top"]'),
-    worksLink = $('#nav a[href="#works"]');
-  if (!home || !works || !homeLink || !worksLink || !("IntersectionObserver" in window)) return;
-
-  const setCurrent = (active) => {
-    homeLink.toggleAttribute("aria-current", active === "home");
-    worksLink.toggleAttribute("aria-current", active === "works");
-  };
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setCurrent(visible.target === works ? "works" : "home");
-    },
-    { threshold: [0.2, 0.45, 0.7] },
-  );
-  observer.observe(home);
-  observer.observe(works);
-}
-
 function initLightbox() {
   const dialog = $("#lightbox");
   if (!dialog) return;
@@ -264,7 +242,7 @@ function initGsapAnimations() {
   }
 
   const pageItems = $$(
-    ".gallery-item,.other-work-list > a,.motion-grid > article,.server-grid > article,.request-steps > li,.request-services li,.request-legacy > *,.about-detail > *,.process li",
+    ".gallery-item,.other-work-list > a,.motion-grid > article,.server-grid > article,.request-steps > li,.request-services li,.request-legacy > *,.about-detail > *,.process li,.home-profile__copy > p,.home-skills dl > div",
   );
   pageItems.forEach((item, index) => {
     gsap.from(item, {
@@ -300,7 +278,7 @@ function initGsapAnimations() {
     });
   });
 
-  $$(".section-head h2,.commission h2,.process h2,.request-guide-intro h2,footer h2").forEach((heading, index) => {
+  $$(".section-head h1,.section-head h2,.home-profile h2,.commission h2,.process h2,.request-guide-intro h2,footer h2").forEach((heading, index) => {
     gsap.from(heading, {
       yPercent: index % 2 ? 24 : 30,
       clipPath: "inset(100% 0 0 0)",
@@ -310,7 +288,7 @@ function initGsapAnimations() {
     });
   });
 
-  const worksHeading = $(".section-head h2");
+  const worksHeading = $(".section-head h1,.section-head h2");
   if (worksHeading) {
     gsap.fromTo(
       worksHeading,
@@ -405,7 +383,6 @@ initPerformanceMode();
 initMenu();
 initHeroScene();
 initPointer();
-initHomeSectionNav();
 initWorkFilters();
 initLightbox();
 initScrollAnimations();

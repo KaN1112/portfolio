@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="KaNが制作したチームサイト、Webサービス、イベントサイトの制作実績。" />
+    <title>Works — KaN's Portfolio</title>
+    <link rel="icon" href="assets/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20261014-2" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="script.js?v=20261014-3" defer></script>
+  </head>
+  <body class="subpage works-page">
+    <div class="page-transition" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <header>
+      <a class="logo" href="index.html"><b>KaN's Portfolio</b><small>WEB / CREATIVE / DESIGN</small></a>
+      <button class="menu" aria-expanded="false" aria-controls="nav" aria-label="メニューを開く"><span>MENU</span></button>
+      <nav id="nav" aria-label="メインナビゲーション"><a href="index.html">Home</a><a href="works.html" aria-current="page">Works</a><a href="thumbnail.html">Thumbnail</a><a href="others.html">Others</a><a href="about.html">About</a><a href="request.html">Request</a></nav>
+    </header>
+    <main>
+      <section class="works" id="works">
+        <div class="section-head">
+          <div><p class="label">制作実績</p><h1>KaNの、<i>制作実績。</i></h1></div>
+          <div class="filters" role="group" aria-label="作品カテゴリ"><button class="active" data-filter="all" aria-pressed="true">すべて <sup>08</sup></button><button data-filter="web" aria-pressed="false">Web <sup>08</sup></button></div>
+        </div>
+        <div class="grid">
+          <article class="work" data-type="web"><a class="art capture" href="https://weiser-osaka.com/" target="_blank" rel="noopener"><img src="assets/site-weiser.png" alt="Weiser Osaka公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>01</span><div><h3>Weiser Osaka</h3><p>大阪を拠点とするeスポーツチーム。KaNが現在運営で所属しております。</p><small>Team Site</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://rs-esports.com/" target="_blank" rel="noopener"><img src="assets/site-realize-summit.png" alt="Realize Summit公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>02</span><div><h3>Realize Summit</h3><p>eスポーツチーム「Realize Summit」の公式サイトです。</p><small>Team Site</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://z3ctesports.github.io/z3ct/" target="_blank" rel="noopener"><img src="assets/site-z3ct.png" alt="Z3ct esports公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>03</span><div><h3>Z3ct esports</h3><p>Z3ct esportsの公式サイトです。</p><small>Team Site</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://teamlysite.com/" target="_blank" rel="noopener"><img src="assets/site-teamly.png" alt="Teamly公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>04</span><div><h3>Teamly</h3><p>メンバーや予定、戦績など、チーム運営に必要な情報をまとめて管理できるサービスです。</p><small>Web Service</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://kotae-app.vercel.app/" target="_blank" rel="noopener"><img src="assets/site-kotae.png" alt="Kotae公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>05</span><div><h3>Kotae</h3><p>フォームの作成・公開・集計と、回答のDiscord通知をまとめて行えるサービスです。</p><small>Web Service</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://tknscrim.github.io/" target="_blank" rel="noopener"><img src="assets/site-tknscrim.png" alt="TK'N SCRIM公式サイトのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>06</span><div><h3>TK'N SCRIM</h3><p>Fortnite賞金付きスクリムの開催情報を掲載する大会サイトです。</p><small>Event Site</small></div></div></article>
+          <article class="work" data-type="web"><a class="art capture" href="https://kan-official.com/" target="_blank" rel="noopener"><img src="assets/site-kan-official-new.png" alt="KaN Official Siteのスクリーンショット" /><span>OPEN SITE ↗</span></a><div class="meta"><span>07</span><div><h3>KaN Official Site</h3><p>活動内容と制作実績を発信するKaNのオフィシャルサイトです。</p><small>Official Site</small></div></div></article>
+          <article class="work" data-type="web"><button class="art capture" data-lightbox="Weiser Members Portal" data-image="assets/site-weiser-portal.png" aria-label="Weiser Members Portalを拡大"><img src="assets/site-weiser-portal.png" alt="Weiser Members Portalのダッシュボード" /><span>VIEW IMAGE ＋</span></button><div class="meta"><span>08</span><div><h3>Weiser Members Portal</h3><p>メンバー、スケジュール、タスクやお知らせを一元管理するチームポータルサイトです。</p><small>Portal Site</small></div></div></article>
+        </div>
+      </section>
+    </main>
+    <footer><div class="footer-y"></div><div><h2>ご依頼を<br class="mobile-break" />お待ちしております</h2></div><nav><a href="https://x.com/KaN_Stream4">X ↗</a><a href="https://discord.gg/aacdxK94UQ">Discord ↗</a></nav><p>© 2026 KaN's Portfolio. ALL RIGHTS RESERVED.</p></footer>
+    <dialog id="lightbox"><button aria-label="閉じる">閉じる ×</button><div class="preview"></div><h2></h2></dialog>
+  </body>
+</html>

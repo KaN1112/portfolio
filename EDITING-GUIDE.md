@@ -6,7 +6,8 @@
 
 | ファイル | 内容 |
 | --- | --- |
-| `index.html` | トップ、制作実績、Requestへの入口 |
+| `index.html` | HOME、概要、スキル、Requestへの入口 |
+| `works.html` | Webサイト・Webサービスの制作実績 |
 | `about.html` | About、How I Work |
 | `thumbnail.html` | サムネイル実績 |
 | `others.html` | その他の実績 |
@@ -22,7 +23,7 @@
 
 ### 制作実績を変更する
 
-`index.html` の `class="grid"` 内にある `article class="work"` が1件分です。
+`works.html` の `class="grid"` 内にある `article class="work"` が1件分です。
 
 - `data-type="web"`：Webフィルターに表示
 - `<img src="...">`：表示画像
