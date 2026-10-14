@@ -162,6 +162,28 @@ function initWorkFilters() {
   );
 }
 
+function initHomeSectionNav() {
+  const home = $("#top"),
+    works = $("#works"),
+    homeLink = $('#nav a[href="#top"]'),
+    worksLink = $('#nav a[href="#works"]');
+  if (!home || !works || !homeLink || !worksLink || !("IntersectionObserver" in window)) return;
+
+  const setCurrent = (active) => {
+    homeLink.toggleAttribute("aria-current", active === "home");
+    worksLink.toggleAttribute("aria-current", active === "works");
+  };
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setCurrent(visible.target === works ? "works" : "home");
+    },
+    { threshold: [0.2, 0.45, 0.7] },
+  );
+  observer.observe(home);
+  observer.observe(works);
+}
+
 function initLightbox() {
   const dialog = $("#lightbox");
   if (!dialog) return;
@@ -224,7 +246,61 @@ function initGsapAnimations() {
       .from(".hero .scroll", { y: 8, autoAlpha: 0, duration: 0.45 }, "-=0.3");
   }
 
-  $$(".section-head h2,.commission h2,footer h2").forEach((heading, index) => {
+  const subHero = $(".sub-hero,.request-guide-hero,.motion-heading,.server-heading");
+  if (subHero) {
+    const title = $("h1", subHero);
+    const label = $(".label", subHero);
+    const supporting = $("aside,p:not(.label)", subHero);
+    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (label) intro.from(label, { y: 12, autoAlpha: 0, duration: 0.45 });
+    if (title) {
+      intro.from(
+        title,
+        { yPercent: 24, clipPath: "inset(100% 0 0 0)", duration: 0.85 },
+        label ? "-=0.2" : 0,
+      );
+    }
+    if (supporting) intro.from(supporting, { y: 16, autoAlpha: 0, duration: 0.55 }, "-=0.35");
+  }
+
+  const pageItems = $$(
+    ".gallery-item,.other-work-list > a,.motion-grid > article,.server-grid > article,.request-steps > li,.request-services li,.request-legacy > *,.about-detail > *,.process li",
+  );
+  pageItems.forEach((item, index) => {
+    gsap.from(item, {
+      y: index % 3 === 1 ? 34 : 22,
+      x: index % 2 === 0 ? -12 : 12,
+      autoAlpha: 0,
+      duration: 0.72,
+      ease: "power2.out",
+      scrollTrigger: { trigger: item, start: "top 88%", once: true },
+    });
+  });
+
+  $$(".editorial-gallery img,.server-grid img").forEach((image) => {
+    if (state.mobile) return;
+    gsap.fromTo(
+      image,
+      { "--page-parallax": "-2%" },
+      {
+        "--page-parallax": "2%",
+        ease: "none",
+        scrollTrigger: { trigger: image, start: "top bottom", end: "bottom top", scrub: 0.8 },
+      },
+    );
+  });
+
+  $$(".request-guide-intro,.request-external,.motion-back,.server-back").forEach((item) => {
+    gsap.from(item, {
+      y: 24,
+      autoAlpha: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      scrollTrigger: { trigger: item, start: "top 88%", once: true },
+    });
+  });
+
+  $$(".section-head h2,.commission h2,.process h2,.request-guide-intro h2,footer h2").forEach((heading, index) => {
     gsap.from(heading, {
       yPercent: index % 2 ? 24 : 30,
       clipPath: "inset(100% 0 0 0)",
@@ -329,6 +405,7 @@ initPerformanceMode();
 initMenu();
 initHeroScene();
 initPointer();
+initHomeSectionNav();
 initWorkFilters();
 initLightbox();
 initScrollAnimations();

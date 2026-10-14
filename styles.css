@@ -43,6 +43,12 @@ body:not(.request-page) :where(a, button):focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 4px;
 }
+.editorial-gallery img,
+.server-grid img {
+  --page-parallax: 0%;
+  transform: translateY(var(--page-parallax));
+  will-change: transform;
+}
 .grain {
   position: fixed;
   inset: 0;
@@ -1966,7 +1972,7 @@ footer h2 {
   will-change: transform, opacity, clip-path;
 }
 .gallery-item img {
-  transform: none !important;
+  transform: translateY(var(--page-parallax, 0%));
 }
 @media (hover: none) {
   .works .art > span {
