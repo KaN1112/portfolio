@@ -39,6 +39,10 @@ textarea {
 button {
   color: inherit;
 }
+body:not(.request-page) :where(a, button):focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
 .grain {
   position: fixed;
   inset: 0;
@@ -1836,6 +1840,35 @@ footer h2 {
 .works .work:first-child .art {
   aspect-ratio: 16 / 7;
 }
+@media (min-width: 901px) {
+  .works .grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .works .work:nth-child(2),
+  .works .work:nth-child(6) {
+    grid-column: 1 / 8;
+  }
+  .works .work:nth-child(3),
+  .works .work:nth-child(7) {
+    grid-column: 8 / 13;
+    margin-top: clamp(70px, 8vw, 120px);
+  }
+  .works .work:nth-child(4) {
+    grid-column: 1 / 6;
+  }
+  .works .work:nth-child(5) {
+    grid-column: 6 / 13;
+    margin-top: clamp(55px, 6vw, 92px);
+  }
+  .works .work:nth-child(8) {
+    grid-column: 3 / 11;
+  }
+  .works .work:nth-child(3) .art,
+  .works .work:nth-child(4) .art,
+  .works .work:nth-child(7) .art {
+    aspect-ratio: 4 / 3;
+  }
+}
 .works .art,
 .works .art:hover {
   border: 1px solid rgba(242, 240, 233, 0.14);
@@ -1853,10 +1886,15 @@ footer h2 {
   height: 3px;
 }
 .works .art img {
+  --image-scale: 1;
+  --parallax-y: 0%;
+  transform: translateY(var(--parallax-y)) scale(var(--image-scale));
   transition: transform 0.45s var(--ease);
+  will-change: transform;
 }
 .works .art:hover img {
-  transform: scale(1.018);
+  --image-scale: 1.018;
+  transform: translateY(var(--parallax-y)) scale(var(--image-scale));
   filter: none;
 }
 .works .art > span {
@@ -1913,6 +1951,19 @@ footer h2 {
 .reveal {
   transform: translateY(18px);
   transition: opacity 0.55s ease, transform 0.55s var(--ease);
+}
+.has-gsap .work,
+.has-gsap .section-head > *,
+.has-gsap .commission > *,
+.has-gsap footer > * {
+  opacity: 1;
+  transform: none;
+}
+.has-gsap .section-head h2,
+.has-gsap .commission h2,
+.has-gsap footer h2,
+.has-gsap .works .art {
+  will-change: transform, opacity, clip-path;
 }
 .gallery-item img {
   transform: none !important;

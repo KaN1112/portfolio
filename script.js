@@ -181,6 +181,7 @@ function initLightbox() {
 }
 
 function initScrollAnimations() {
+  if (initGsapAnimations()) return;
   const targets = $$(
     ".about > *,.section-head > *,.work,.process > .label,.process > h2,.process li,.commission > *,footer > *,.gallery-item",
   );
@@ -200,6 +201,106 @@ function initScrollAnimations() {
     { threshold: 0.08, rootMargin: "0px 0px -35px" },
   );
   targets.forEach((t) => observer.observe(t));
+}
+
+function initGsapAnimations() {
+  if (!window.gsap || !window.ScrollTrigger || state.reduced) return false;
+
+  const { gsap, ScrollTrigger } = window;
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add("has-gsap");
+
+  const hero = $(".hero");
+  if (hero) {
+    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+    intro
+      .from(".hero .eyebrow", { y: 14, autoAlpha: 0, duration: 0.55 })
+      .from(
+        ".hero h1",
+        { yPercent: 18, clipPath: "inset(100% 0 0 0)", duration: 0.95 },
+        "-=0.28",
+      )
+      .from(".hero aside", { y: 18, autoAlpha: 0, duration: 0.65 }, "-=0.42")
+      .from(".hero .scroll", { y: 8, autoAlpha: 0, duration: 0.45 }, "-=0.3");
+  }
+
+  $$(".section-head h2,.commission h2,footer h2").forEach((heading, index) => {
+    gsap.from(heading, {
+      yPercent: index % 2 ? 24 : 30,
+      clipPath: "inset(100% 0 0 0)",
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: { trigger: heading, start: "top 86%", once: true },
+    });
+  });
+
+  const worksHeading = $(".section-head h2");
+  if (worksHeading) {
+    gsap.fromTo(
+      worksHeading,
+      { color: "rgba(242,240,233,.38)" },
+      {
+        color: "rgb(242,240,233)",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".section-head",
+          start: "top 78%",
+          end: "bottom 48%",
+          scrub: 0.7,
+        },
+      },
+    );
+  }
+
+  $$(".work").forEach((work, index) => {
+    const art = $(".art", work);
+    const image = $(".art img", work);
+    const meta = $(".meta", work);
+    const fromLeft = index % 2 === 0;
+
+    if (art) {
+      gsap.from(art, {
+        clipPath: fromLeft ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)",
+        duration: 1.05,
+        ease: "power3.inOut",
+        scrollTrigger: { trigger: work, start: "top 84%", once: true },
+      });
+    }
+    if (meta) {
+      gsap.from(meta, {
+        y: 24,
+        autoAlpha: 0,
+        duration: 0.65,
+        delay: 0.12,
+        ease: "power2.out",
+        scrollTrigger: { trigger: work, start: "top 78%", once: true },
+      });
+    }
+    if (image && !state.mobile) {
+      gsap.fromTo(
+        image,
+        { "--parallax-y": "-2.5%" },
+        {
+          "--parallax-y": "2.5%",
+          ease: "none",
+          scrollTrigger: { trigger: art, start: "top bottom", end: "bottom top", scrub: 0.8 },
+        },
+      );
+    }
+  });
+
+  const requestRoute = $(".contact-routes");
+  if (requestRoute) {
+    gsap.from(requestRoute, {
+      xPercent: 5,
+      autoAlpha: 0,
+      duration: 0.75,
+      ease: "power2.out",
+      scrollTrigger: { trigger: requestRoute, start: "top 88%", once: true },
+    });
+  }
+
+  return true;
 }
 
 function initPageTransitions() {
