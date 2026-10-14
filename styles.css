@@ -682,6 +682,9 @@ header nav a[aria-current]:after {
 .about > div {
   grid-column: 3/10;
 }
+.about-detail > div {
+  grid-column: 1/10;
+}
 .about h2,
 .process h2,
 .commission h2,
