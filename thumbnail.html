@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20261014-6" />
+    <link rel="stylesheet" href="styles.css?v=20261026-1" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
     <script src="script.js?v=20261014-3" defer></script>
@@ -42,31 +42,58 @@
           <small>配信・動画・大会向けのデザイン</small>
         </aside>
       </section>
-      <section class="editorial-gallery" aria-label="サムネイル制作実績">
-        <article class="gallery-item">
-          <figure>
-            <img src="assets/thumbnail-fan-fare.png" alt="Fortnite ファンファーレのサムネイル" />
-            <figcaption><span>Fortnite Highlight-Fanfare/Koji Tamaki</span><span>001</span></figcaption>
-          </figure>
-        </article>
-        <article class="gallery-item">
-          <figure>
-            <img src="assets/thumbnail-streaming.png" alt="配信中告知のサムネイル" />
-            <figcaption><span>Streaming Thumbnail</span><span>002</span></figcaption>
-          </figure>
-        </article>
-        <article class="gallery-item">
-          <figure>
-            <img src="assets/thumbnail-valorant.png" alt="VALORANT プレミアのサムネイル" />
-            <figcaption><span>VALORANT Premiere</span><span>003</span></figcaption>
-          </figure>
-        </article>
-        <article class="gallery-item">
-          <figure>
-            <img src="assets/thumbnail-kan-streaming.png" alt="KaN 配信中告知のサムネイル" />
-            <figcaption><span>KaN Streaming Thumbnail</span><span>004</span></figcaption>
-          </figure>
-        </article>
+      <section class="thumbnail-category" aria-labelledby="liveThumbnailTitle">
+        <div class="thumbnail-category-heading">
+          <span>LIVE STREAM</span>
+          <h2 id="liveThumbnailTitle">ライブ配信サムネイル</h2>
+        </div>
+        <div class="editorial-gallery">
+          <article class="gallery-item">
+            <figure>
+              <img src="assets/thumbnail-streaming.png" alt="配信中告知のサムネイル" />
+              <figcaption><span>Streaming Thumbnail</span><span>L001</span></figcaption>
+            </figure>
+          </article>
+          <article class="gallery-item">
+            <figure>
+              <img src="assets/thumbnail-kan-streaming.png" alt="KaN 配信中告知のサムネイル" loading="lazy" />
+              <figcaption><span>KaN Streaming Thumbnail</span><span>L002</span></figcaption>
+            </figure>
+          </article>
+          <article class="gallery-item">
+            <figure>
+              <img src="assets/thumbnail-live-taichi.png" alt="TAICHI 配信中告知のサムネイル" loading="lazy" />
+              <figcaption><span>TAICHI Streaming Thumbnail</span><span>L003</span></figcaption>
+            </figure>
+          </article>
+          <article class="gallery-item">
+            <figure>
+              <img src="assets/thumbnail-live-runa.jpg" alt="るな 配信中告知のサムネイル" loading="lazy" />
+              <figcaption><span>Runa Streaming Thumbnail</span><span>L004</span></figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section class="thumbnail-category" aria-labelledby="videoThumbnailTitle">
+        <div class="thumbnail-category-heading">
+          <span>VIDEO</span>
+          <h2 id="videoThumbnailTitle">動画サムネイル</h2>
+        </div>
+        <div class="editorial-gallery">
+          <article class="gallery-item"><figure><img src="assets/thumbnail-fan-fare.png" alt="Fortnite ファンファーレの動画サムネイル" loading="lazy" /><figcaption><span>Fortnite Highlight-Fanfare/Koji Tamaki</span><span>V001</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-valorant.png" alt="VALORANT プレミアの動画サムネイル" loading="lazy" /><figcaption><span>VALORANT Premiere</span><span>V002</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-asmr.jpg" alt="Apex Pro Mini キーボードサウンドの動画サムネイル" loading="lazy" /><figcaption><span>Apex Pro Mini / Keyboard Sound</span><span>V003</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-champions.jpg" alt="VALORANT Champions楽曲紹介の動画サムネイル" loading="lazy" /><figcaption><span>VALORANT Champions Songs</span><span>V004</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-geoguessr.png" alt="GeoGuessrの動画サムネイル" loading="lazy" /><figcaption><span>GeoGuessr</span><span>V005</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-super-showdown.png" alt="スーパーマンショーダウンの動画サムネイル" loading="lazy" /><figcaption><span>Superman Showdown</span><span>V006</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-vct.jpg" alt="VCT Tokyoの動画サムネイル" loading="lazy" /><figcaption><span>VCT Tokyo</span><span>V007</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-one-time-event.jpg" alt="Fortniteワンタイムイベントの動画サムネイル" loading="lazy" /><figcaption><span>Fortnite One-Time Event</span><span>V008</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-blast-off.jpg" alt="ブラストオフの動画サムネイル" loading="lazy" /><figcaption><span>Blast Off</span><span>V009</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-minecraft.jpg" alt="マイクラ参加型の動画サムネイル" loading="lazy" /><figcaption><span>Minecraft Participation</span><span>V010</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-rank-cup.png" alt="ランクカップの動画サムネイル" loading="lazy" /><figcaption><span>Rank Cup</span><span>V011</span></figcaption></figure></article>
+          <article class="gallery-item"><figure><img src="assets/thumbnail-video-last-player.jpg" alt="残り一人を探す動画サムネイル" loading="lazy" /><figcaption><span>Last Player Search</span><span>V012</span></figcaption></figure></article>
+        </div>
       </section>
     </main>
     <footer>
