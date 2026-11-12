@@ -62,6 +62,14 @@ function initLightbox() {
       dialog.showModal();
     });
   });
+  $$(".gallery-item img").forEach((image) => {
+    image.addEventListener("click", () => {
+      $("h2", dialog).textContent = image.alt;
+      $(".preview", dialog).style.backgroundImage =
+        `url("${image.currentSrc || image.src}")`;
+      dialog.showModal();
+    });
+  });
   $("button", dialog).addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
@@ -94,7 +102,9 @@ function initRotaryGallery() {
     const rotation = -progress * step * (items.length - 1);
 
     items.forEach((item, index) => {
-      item.style.setProperty("--angle", `${index * step + rotation}deg`);
+      const angle = index * step + rotation;
+      item.style.setProperty("--angle", `${angle}deg`);
+      item.style.setProperty("--counter-angle", `${-angle}deg`);
       item.classList.toggle("is-active", index === activeIndex);
     });
   };
