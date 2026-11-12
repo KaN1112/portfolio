@@ -77,34 +77,52 @@ function initLightbox() {
 }
 
 function initRotaryGallery() {
-  const section = $("body:not(.works-page) #works");
+  const section = $("#works");
+  const stage = section ? $(".wheel-stage", section) : null;
   const items = section ? $$(".work", section) : [];
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const desktop = matchMedia("(min-width: 901px)");
-  if (!section || items.length === 0) return;
+  if (!section || !stage || items.length === 0) return;
 
   let frame = 0;
+  const reset = () => {
+    items.forEach((item) => {
+      item.style.removeProperty("--wheel-x");
+      item.style.removeProperty("--wheel-y");
+      item.style.removeProperty("--wheel-scale");
+      item.style.removeProperty("--wheel-opacity");
+      item.classList.remove("is-active");
+    });
+  };
+
   const render = () => {
     frame = 0;
     if (!desktop.matches || reducedMotion.matches) {
-      items.forEach((item) => {
-        item.style.removeProperty("--angle");
-        item.classList.remove("is-active");
-      });
+      reset();
       return;
     }
 
     const rect = section.getBoundingClientRect();
     const travel = Math.max(1, section.offsetHeight - innerHeight);
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
-    const activeIndex = Math.round(progress * (items.length - 1));
-    const step = 360 / items.length;
-    const rotation = -progress * step * (items.length - 1);
+    const position = progress * (items.length - 1);
+    const activeIndex = Math.round(position);
+    const radiusX = Math.min(stage.clientWidth * 0.44, 540);
+    const radiusY = Math.min(stage.clientHeight * 0.38, 300);
 
     items.forEach((item, index) => {
-      const angle = index * step + rotation;
-      item.style.setProperty("--angle", `${angle}deg`);
-      item.style.setProperty("--counter-angle", `${-angle}deg`);
+      const offset = index - position;
+      const angle = offset * 0.72;
+      const distance = Math.abs(offset);
+      const x = Math.sin(angle) * radiusX;
+      const y = (1 - Math.cos(angle)) * radiusY;
+      const scale = Math.max(0.48, 1 - distance * 0.18);
+      const opacity = Math.max(0.08, 1 - distance * 0.38);
+
+      item.style.setProperty("--wheel-x", `${x.toFixed(2)}px`);
+      item.style.setProperty("--wheel-y", `${y.toFixed(2)}px`);
+      item.style.setProperty("--wheel-scale", scale.toFixed(3));
+      item.style.setProperty("--wheel-opacity", opacity.toFixed(3));
       item.classList.toggle("is-active", index === activeIndex);
     });
   };
@@ -116,6 +134,7 @@ function initRotaryGallery() {
 
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);
+  addEventListener("pageshow", requestRender);
   reducedMotion.addEventListener("change", requestRender);
   desktop.addEventListener("change", requestRender);
   render();
