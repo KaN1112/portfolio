@@ -920,10 +920,10 @@ footer h2 {
   gap: 18px;
   align-items: center;
   padding: 14px 20px;
-  border: 1px solid var(--orange);
+  border: 1px solid var(--paper);
   border-radius: 1rem;
-  color: var(--paper);
-  background: linear-gradient(0deg, var(--orange) 50%, #ff9147 100%);
+  color: var(--ink);
+  background: var(--paper);
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.6),
     0 5px 10px rgba(0, 0, 0, 0.1);
