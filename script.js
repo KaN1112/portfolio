@@ -78,50 +78,69 @@ function initServerSlider() {
   const cards = $$("article", slider);
 
   let frame = 0;
-  let target = slider.scrollLeft;
+  let currentPosition = 0;
+  let targetPosition = 0;
 
-  const updateCards = () => {
-    const center = slider.scrollLeft + slider.clientWidth / 2;
+  const resetCards = () => {
     cards.forEach((card) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const distance = Math.min(
-        1,
-        Math.abs(cardCenter - center) / slider.clientWidth,
-      );
+      card.style.removeProperty("--server-card-x");
+      card.style.removeProperty("--server-card-z");
+      card.style.removeProperty("--server-card-rotate");
+      card.style.removeProperty("--server-card-scale");
+      card.style.removeProperty("--server-card-opacity");
+      card.style.removeProperty("--server-card-depth");
+      card.classList.remove("is-active");
+    });
+  };
+
+  const renderCards = () => {
+    const radiusX = Math.min(slider.clientWidth * 0.43, 500);
+    const radiusZ = Math.min(slider.clientWidth * 0.34, 390);
+    const activeIndex = Math.round(currentPosition);
+
+    cards.forEach((card, index) => {
+      const offset = index - currentPosition;
+      const angle = offset * 0.72;
+      const distance = Math.abs(offset);
+      const x = Math.sin(angle) * radiusX;
+      const z = (Math.cos(angle) - 1) * radiusZ;
+      const rotate = Math.sin(angle) * -24;
+      const scale = Math.max(0.72, 1 - distance * 0.08);
+      const opacity = Math.max(0.18, 1 - distance * 0.3);
+
+      card.style.setProperty("--server-card-x", `${x.toFixed(2)}px`);
+      card.style.setProperty("--server-card-z", `${z.toFixed(2)}px`);
+      card.style.setProperty("--server-card-rotate", `${rotate.toFixed(2)}deg`);
+      card.style.setProperty("--server-card-scale", scale.toFixed(3));
+      card.style.setProperty("--server-card-opacity", opacity.toFixed(3));
       card.style.setProperty(
-        "--server-card-scale",
-        (1 - distance * 0.08).toFixed(3),
+        "--server-card-depth",
+        String(100 - Math.round(distance * 10)),
       );
-      card.style.setProperty(
-        "--server-card-opacity",
-        (1 - distance * 0.4).toFixed(3),
-      );
+      card.classList.toggle("is-active", index === activeIndex);
     });
   };
 
   const updateTarget = () => {
     if (!desktop.matches || reducedMotion.matches) {
-      cards.forEach((card) => {
-        card.style.removeProperty("--server-card-scale");
-        card.style.removeProperty("--server-card-opacity");
-      });
+      resetCards();
       return;
     }
     const rect = section.getBoundingClientRect();
     const travel = Math.max(1, section.offsetHeight - innerHeight);
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
-    target = progress * (slider.scrollWidth - slider.clientWidth);
+    targetPosition = progress * (cards.length - 1);
   };
 
   const animate = () => {
     frame = 0;
     if (!desktop.matches || reducedMotion.matches) return;
 
-    const distance = target - slider.scrollLeft;
-    slider.scrollLeft += distance * 0.12;
-    updateCards();
+    const distance = targetPosition - currentPosition;
+    currentPosition += distance * 0.1;
+    renderCards();
 
-    if (Math.abs(distance) > 0.4) frame = requestAnimationFrame(animate);
+    if (Math.abs(distance) > 0.002) frame = requestAnimationFrame(animate);
   };
 
   const requestRender = () => {
@@ -140,11 +159,14 @@ function initServerSlider() {
       const direction = button.dataset.serverSlide === "previous" ? -1 : 1;
 
       if (desktop.matches && !reducedMotion.matches) {
-        const maxScroll = Math.max(1, slider.scrollWidth - slider.clientWidth);
         const travel = Math.max(1, section.offsetHeight - innerHeight);
+        const targetIndex = Math.min(
+          cards.length - 1,
+          Math.max(0, Math.round(currentPosition) + direction),
+        );
         const targetProgress = Math.min(
           1,
-          Math.max(0, (slider.scrollLeft + direction * distance) / maxScroll),
+          Math.max(0, targetIndex / Math.max(1, cards.length - 1)),
         );
         scrollTo({
           top: section.offsetTop + targetProgress * travel,
@@ -163,8 +185,8 @@ function initServerSlider() {
   desktop.addEventListener("change", requestRender);
   reducedMotion.addEventListener("change", requestRender);
   updateTarget();
-  slider.scrollLeft = target;
-  updateCards();
+  currentPosition = targetPosition;
+  if (desktop.matches && !reducedMotion.matches) renderCards();
 }
 
 function initWorkFilters() {

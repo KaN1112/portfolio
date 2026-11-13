@@ -790,22 +790,28 @@ footer h2 {
   border-bottom: 1px solid var(--ink);
 }
 .server-grid {
-  display: flex;
-  gap: 24px;
-  padding-bottom: 20px;
-  overflow-x: hidden;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: none;
-  scrollbar-width: thin;
+  position: relative;
+  height: min(52vh, 470px);
+  overflow: visible;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 .server-grid article {
-  flex: 0 0 clamp(280px, 32vw, 400px);
-  transform: scale(var(--server-card-scale, 1));
+  position: absolute;
+  z-index: var(--server-card-depth, 1);
+  top: 50%;
+  left: 50%;
+  width: min(32vw, 400px);
+  transform: translate(-50%, -50%) translateX(var(--server-card-x, 0))
+    translateZ(var(--server-card-z, 0)) rotateY(var(--server-card-rotate, 0deg))
+    scale(var(--server-card-scale, 1));
   transform-origin: center;
   opacity: var(--server-card-opacity, 1);
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  pointer-events: none;
   will-change: transform, opacity;
+}
+.server-grid article.is-active {
+  pointer-events: auto;
 }
 .server-grid img {
   width: 100%;
@@ -1108,8 +1114,25 @@ footer p {
     overflow: visible;
   }
   .server-grid {
+    display: flex;
+    gap: 24px;
+    height: auto;
+    padding-bottom: 20px;
     overflow-x: auto;
+    overflow-y: visible;
+    perspective: none;
     scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .server-grid article {
+    position: static;
+    flex: 0 0 clamp(280px, 72vw, 400px);
+    width: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .home-profile,
   .about-detail,
