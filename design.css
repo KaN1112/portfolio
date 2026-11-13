@@ -1021,7 +1021,7 @@ footer p {
   body:not(.works-page) #works {
     height: auto;
     padding: 78px 20px;
-    background: var(--soft);
+    background: var(--paper);
   }
   body:not(.works-page) #works .wheel-stage {
     position: static;
@@ -1191,7 +1191,7 @@ footer p {
   body:not(.works-page) #works {
     height: auto;
     padding: 80px max(20px, calc((100vw - 1240px) / 2));
-    background: var(--soft);
+    background: var(--paper);
   }
   body:not(.works-page) #works .wheel-stage {
     position: static;
