@@ -75,21 +75,60 @@ function initServerSlider() {
   const desktop = matchMedia("(min-width: 901px)");
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (!section || !slider) return;
+  const cards = $$("article", slider);
 
   let frame = 0;
-  const render = () => {
-    frame = 0;
-    if (!desktop.matches || reducedMotion.matches) return;
+  let target = slider.scrollLeft;
 
+  const updateCards = () => {
+    const center = slider.scrollLeft + slider.clientWidth / 2;
+    cards.forEach((card) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.min(
+        1,
+        Math.abs(cardCenter - center) / slider.clientWidth,
+      );
+      card.style.setProperty(
+        "--server-card-scale",
+        (1 - distance * 0.08).toFixed(3),
+      );
+      card.style.setProperty(
+        "--server-card-opacity",
+        (1 - distance * 0.4).toFixed(3),
+      );
+    });
+  };
+
+  const updateTarget = () => {
+    if (!desktop.matches || reducedMotion.matches) {
+      cards.forEach((card) => {
+        card.style.removeProperty("--server-card-scale");
+        card.style.removeProperty("--server-card-opacity");
+      });
+      return;
+    }
     const rect = section.getBoundingClientRect();
     const travel = Math.max(1, section.offsetHeight - innerHeight);
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
-    slider.scrollLeft = progress * (slider.scrollWidth - slider.clientWidth);
+    target = progress * (slider.scrollWidth - slider.clientWidth);
+  };
+
+  const animate = () => {
+    frame = 0;
+    if (!desktop.matches || reducedMotion.matches) return;
+
+    const distance = target - slider.scrollLeft;
+    slider.scrollLeft += distance * 0.12;
+    updateCards();
+
+    if (Math.abs(distance) > 0.4) frame = requestAnimationFrame(animate);
   };
 
   const requestRender = () => {
-    if (frame) return;
-    frame = requestAnimationFrame(render);
+    updateTarget();
+    if (!frame && desktop.matches && !reducedMotion.matches) {
+      frame = requestAnimationFrame(animate);
+    }
   };
 
   controls.forEach((button) => {
@@ -123,7 +162,9 @@ function initServerSlider() {
   addEventListener("pageshow", requestRender);
   desktop.addEventListener("change", requestRender);
   reducedMotion.addEventListener("change", requestRender);
-  render();
+  updateTarget();
+  slider.scrollLeft = target;
+  updateCards();
 }
 
 function initWorkFilters() {

@@ -795,13 +795,17 @@ footer h2 {
   padding-bottom: 20px;
   overflow-x: hidden;
   overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
   scrollbar-width: thin;
 }
 .server-grid article {
   flex: 0 0 clamp(280px, 32vw, 400px);
+  transform: scale(var(--server-card-scale, 1));
+  transform-origin: center;
+  opacity: var(--server-card-opacity, 1);
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  will-change: transform, opacity;
 }
 .server-grid img {
   width: 100%;
@@ -1105,6 +1109,7 @@ footer p {
   }
   .server-grid {
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
   }
   .home-profile,
   .about-detail,
