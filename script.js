@@ -69,9 +69,28 @@ function initActiveNavigation() {
 }
 
 function initServerSlider() {
+  const section = $(".server-showcase");
   const slider = $(".server-grid");
   const controls = $$("[data-server-slide]");
-  if (!slider || controls.length === 0) return;
+  const desktop = matchMedia("(min-width: 901px)");
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  if (!section || !slider) return;
+
+  let frame = 0;
+  const render = () => {
+    frame = 0;
+    if (!desktop.matches || reducedMotion.matches) return;
+
+    const rect = section.getBoundingClientRect();
+    const travel = Math.max(1, section.offsetHeight - innerHeight);
+    const progress = Math.min(1, Math.max(0, -rect.top / travel));
+    slider.scrollLeft = progress * (slider.scrollWidth - slider.clientWidth);
+  };
+
+  const requestRender = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(render);
+  };
 
   controls.forEach((button) => {
     button.addEventListener("click", () => {
@@ -79,14 +98,32 @@ function initServerSlider() {
       const gap = Number.parseFloat(getComputedStyle(slider).columnGap) || 0;
       const distance =
         (card?.getBoundingClientRect().width || slider.clientWidth) + gap;
-      slider.scrollBy({
-        left: button.dataset.serverSlide === "previous" ? -distance : distance,
-        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-      });
+      const direction = button.dataset.serverSlide === "previous" ? -1 : 1;
+
+      if (desktop.matches && !reducedMotion.matches) {
+        const maxScroll = Math.max(1, slider.scrollWidth - slider.clientWidth);
+        const travel = Math.max(1, section.offsetHeight - innerHeight);
+        const targetProgress = Math.min(
+          1,
+          Math.max(0, (slider.scrollLeft + direction * distance) / maxScroll),
+        );
+        scrollTo({
+          top: section.offsetTop + targetProgress * travel,
+          behavior: "smooth",
+        });
+        return;
+      }
+
+      slider.scrollBy({ left: direction * distance, behavior: "smooth" });
     });
   });
+
+  addEventListener("scroll", requestRender, { passive: true });
+  addEventListener("resize", requestRender);
+  addEventListener("pageshow", requestRender);
+  desktop.addEventListener("change", requestRender);
+  reducedMotion.addEventListener("change", requestRender);
+  render();
 }
 
 function initWorkFilters() {

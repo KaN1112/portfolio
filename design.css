@@ -746,9 +746,20 @@ footer h2 {
 .other-work-number {
   color: var(--muted);
 }
-.motion-showcase,
-.server-showcase {
+.motion-showcase {
   padding-bottom: 110px;
+}
+.server-showcase {
+  height: 420vh;
+}
+.server-slider-stage {
+  position: sticky;
+  top: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 72px);
+  overflow: clip;
 }
 .motion-grid {
   display: grid;
@@ -782,7 +793,7 @@ footer h2 {
   display: flex;
   gap: 24px;
   padding-bottom: 20px;
-  overflow-x: auto;
+  overflow-x: hidden;
   overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
@@ -1012,6 +1023,31 @@ footer p {
   color: #999;
   font-size: 11px;
 }
+.page-top.btn--circle {
+  position: fixed;
+  z-index: 90;
+  right: 28px;
+  bottom: 28px;
+  display: grid;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  place-items: center;
+}
+.page-top.btn--circle i {
+  font-size: 150%;
+  font-style: normal;
+  line-height: 60px;
+  letter-spacing: 0;
+  transition: transform 0.3s;
+}
+.page-top.btn--circle:hover i {
+  transform: translateY(-3px);
+}
 @media (max-width: 900px) {
   :root {
     --page: calc(100% - 40px);
@@ -1056,6 +1092,19 @@ footer p {
   }
   .hero-image {
     height: calc(100svh - 64px);
+  }
+  .server-showcase {
+    height: auto;
+    padding-bottom: 80px;
+  }
+  .server-slider-stage {
+    position: static;
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+  .server-grid {
+    overflow-x: auto;
   }
   .home-profile,
   .about-detail,
@@ -1227,6 +1276,15 @@ footer p {
   footer p {
     grid-column: auto;
   }
+  .page-top.btn--circle {
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+  }
+  .page-top.btn--circle i {
+    line-height: 52px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -1269,6 +1327,19 @@ footer p {
     transform: none !important;
     opacity: 1;
     pointer-events: auto;
+  }
+  .server-showcase {
+    height: auto;
+    padding-bottom: 80px;
+  }
+  .server-slider-stage {
+    position: static;
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+  .server-grid {
+    overflow-x: auto;
   }
   body:not(.works-page) #works .section-head,
   body:not(.works-page) #works .grid {
