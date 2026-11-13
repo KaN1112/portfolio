@@ -153,7 +153,7 @@ main {
   color: var(--ink);
   font-family: "Zen Kurenaido", sans-serif;
   font-size: clamp(28px, 3vw, 48px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.48;
   letter-spacing: -0.015em;
 }
@@ -273,7 +273,7 @@ main {
   color: var(--ink);
   font-family: "Zen Kurenaido", sans-serif;
   font-size: clamp(28px, 4vw, 52px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.4;
   letter-spacing: -0.015em;
 }
@@ -482,7 +482,7 @@ body:not(.works-page) #works .work.is-active {
   margin: 0;
   font-family: "Zen Kurenaido", sans-serif;
   font-size: clamp(28px, 4vw, 52px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.4;
   letter-spacing: -0.015em;
 }
@@ -518,7 +518,7 @@ body:not(.works-page) #works .work.is-active {
   margin: 0;
   font-family: "Zen Kurenaido", sans-serif;
   font-size: clamp(21px, 2.5vw, 32px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.45;
   letter-spacing: -0.01em;
 }
@@ -605,7 +605,7 @@ footer h2 {
   margin: 0 0 18px;
   font-family: "Zen Kurenaido", sans-serif;
   font-size: clamp(26px, 3vw, 40px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.5;
   letter-spacing: -0.01em;
 }
@@ -765,7 +765,7 @@ footer h2 {
 .request-services h3,
 .request-steps h4 {
   font-family: "Zen Kurenaido", sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.45;
   letter-spacing: -0.01em;
 }
