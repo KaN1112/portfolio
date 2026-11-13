@@ -114,16 +114,20 @@ main {
   min-height: 60vh;
 }
 .hero {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.78fr) minmax(520px, 1.45fr);
-  gap: clamp(48px, 7vw, 112px);
-  align-items: center;
-  width: var(--page);
+  display: block;
+  width: 100%;
   min-height: calc(100svh - 72px);
-  margin: 0 auto;
-  padding: 56px 0 64px;
-  color: var(--ink);
-  background: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--soft);
+}
+
+.hero-image {
+  width: 100%;
+  height: calc(100svh - 72px);
+  object-fit: cover;
+  object-position: center;
 }
 .hero-copy {
   display: flex;
@@ -609,6 +613,55 @@ footer h2 {
   gap: 52px 18px;
   padding-bottom: 110px;
 }
+
+.thumbnail-category {
+  position: relative;
+  height: 420vh;
+}
+
+.thumbnail-wheel-stage {
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  overflow: clip;
+}
+
+.thumbnail-wheel-stage .thumbnail-category-heading {
+  position: relative;
+  z-index: 4;
+  margin: 0;
+  padding: 34px 0 0;
+}
+
+.thumbnail-wheel-stage .editorial-gallery {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.thumbnail-wheel-stage .gallery-item,
+.thumbnail-wheel-stage .gallery-item:nth-child(n) {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  width: min(44vw, 660px);
+  transform: translate(-50%, -50%)
+    translate(var(--thumb-x, 0), var(--thumb-y, 0))
+    scale(var(--thumb-scale, 0.55));
+  transform-origin: center;
+  opacity: var(--thumb-opacity, 0.15);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.thumbnail-wheel-stage .gallery-item.is-active {
+  z-index: 3;
+  opacity: 1;
+  pointer-events: auto;
+}
 .gallery-item {
   grid-column: span 4;
 }
@@ -659,10 +712,16 @@ footer h2 {
 }
 .process li {
   display: grid;
-  grid-template-columns: 56px 1fr;
+  grid-template-columns: 56px minmax(90px, 160px) minmax(0, 1fr);
   gap: 20px;
+  align-items: start;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.process li p {
+  min-width: 0;
+  margin: 0;
 }
 .other-work-list {
   padding-bottom: 110px;
@@ -921,16 +980,11 @@ footer p {
     display: none;
   }
   .hero {
-    grid-template-columns: 1fr;
-    gap: 42px;
-    min-height: auto;
-    padding: 52px 0 70px;
+    min-height: calc(100svh - 64px);
+    padding: 0;
   }
-  .hero-feature {
-    order: -1;
-  }
-  .hero h1 {
-    font-size: clamp(27px, 7vw, 38px);
+  .hero-image {
+    height: calc(100svh - 64px);
   }
   .home-profile,
   .commission > div,
@@ -1005,6 +1059,36 @@ footer p {
   .gallery-item:nth-child(n) {
     grid-column: span 1;
   }
+  .thumbnail-category {
+    height: auto !important;
+  }
+  .thumbnail-wheel-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+  .thumbnail-wheel-stage .thumbnail-category-heading {
+    padding: 0;
+  }
+  .thumbnail-wheel-stage .editorial-gallery {
+    position: static;
+    display: flex;
+    height: auto;
+    margin: 0 -20px;
+    padding: 0 20px 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  .thumbnail-wheel-stage .gallery-item,
+  .thumbnail-wheel-stage .gallery-item:nth-child(n) {
+    position: static;
+    flex: 0 0 min(82vw, 560px);
+    width: auto;
+    transform: none !important;
+    opacity: 1;
+    pointer-events: auto;
+    scroll-snap-align: center;
+  }
   .motion-grid,
   .request-steps {
     grid-template-columns: 1fr;
@@ -1062,6 +1146,10 @@ footer p {
   .other-work-number {
     display: none;
   }
+  .process li {
+    grid-template-columns: 40px 72px minmax(0, 1fr);
+    gap: 12px;
+  }
   .request-services li {
     align-items: flex-start;
     flex-direction: column;
@@ -1094,6 +1182,27 @@ footer p {
     position: static;
     height: auto;
     overflow: visible;
+  }
+  .thumbnail-category {
+    height: auto !important;
+  }
+  .thumbnail-wheel-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+  .thumbnail-wheel-stage .editorial-gallery {
+    position: static;
+    display: grid;
+    height: auto;
+  }
+  .thumbnail-wheel-stage .gallery-item,
+  .thumbnail-wheel-stage .gallery-item:nth-child(n) {
+    position: static;
+    width: auto;
+    transform: none !important;
+    opacity: 1;
+    pointer-events: auto;
   }
   body:not(.works-page) #works .section-head,
   body:not(.works-page) #works .grid {

@@ -140,7 +140,80 @@ function initRotaryGallery() {
   render();
 }
 
+function initThumbnailWheels() {
+  const wheels = $$(".thumbnail-category").map((section) => ({
+    section,
+    stage: $(".thumbnail-wheel-stage", section),
+    items: $$(".gallery-item", section),
+  }));
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const desktop = matchMedia("(min-width: 901px)");
+  if (wheels.length === 0) return;
+
+  let frame = 0;
+  const reset = () => {
+    wheels.forEach(({ section, items }) => {
+      section.style.removeProperty("height");
+      items.forEach((item) => {
+        item.style.removeProperty("--thumb-x");
+        item.style.removeProperty("--thumb-y");
+        item.style.removeProperty("--thumb-scale");
+        item.style.removeProperty("--thumb-opacity");
+        item.classList.remove("is-active");
+      });
+    });
+  };
+
+  const render = () => {
+    frame = 0;
+    if (!desktop.matches || reducedMotion.matches) {
+      reset();
+      return;
+    }
+
+    wheels.forEach(({ section, stage, items }) => {
+      section.style.height = `${Math.max(360, items.length * 52)}vh`;
+      const rect = section.getBoundingClientRect();
+      const travel = Math.max(1, section.offsetHeight - innerHeight);
+      const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      const position = progress * (items.length - 1);
+      const activeIndex = Math.round(position);
+      const radiusX = Math.min(stage.clientWidth * 0.44, 560);
+      const radiusY = Math.min(stage.clientHeight * 0.36, 280);
+
+      items.forEach((item, index) => {
+        const offset = index - position;
+        const angle = offset * 0.7;
+        const distance = Math.abs(offset);
+        const x = Math.sin(angle) * radiusX;
+        const y = (1 - Math.cos(angle)) * radiusY;
+        const scale = Math.max(0.46, 1 - distance * 0.18);
+        const opacity = Math.max(0.06, 1 - distance * 0.4);
+
+        item.style.setProperty("--thumb-x", `${x.toFixed(2)}px`);
+        item.style.setProperty("--thumb-y", `${y.toFixed(2)}px`);
+        item.style.setProperty("--thumb-scale", scale.toFixed(3));
+        item.style.setProperty("--thumb-opacity", opacity.toFixed(3));
+        item.classList.toggle("is-active", index === activeIndex);
+      });
+    });
+  };
+
+  const requestRender = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(render);
+  };
+
+  addEventListener("scroll", requestRender, { passive: true });
+  addEventListener("resize", requestRender);
+  addEventListener("pageshow", requestRender);
+  reducedMotion.addEventListener("change", requestRender);
+  desktop.addEventListener("change", requestRender);
+  render();
+}
+
 initMenu();
 initWorkFilters();
 initLightbox();
 initRotaryGallery();
+initThumbnailWheels();
