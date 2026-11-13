@@ -71,7 +71,6 @@ function initActiveNavigation() {
 function initServerSlider() {
   const section = $(".server-showcase");
   const slider = $(".server-grid");
-  const controls = $$("[data-server-slide]");
   const desktop = matchMedia("(min-width: 901px)");
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (!section || !slider) return;
@@ -149,35 +148,6 @@ function initServerSlider() {
       frame = requestAnimationFrame(animate);
     }
   };
-
-  controls.forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = $("article", slider);
-      const gap = Number.parseFloat(getComputedStyle(slider).columnGap) || 0;
-      const distance =
-        (card?.getBoundingClientRect().width || slider.clientWidth) + gap;
-      const direction = button.dataset.serverSlide === "previous" ? -1 : 1;
-
-      if (desktop.matches && !reducedMotion.matches) {
-        const travel = Math.max(1, section.offsetHeight - innerHeight);
-        const targetIndex = Math.min(
-          cards.length - 1,
-          Math.max(0, Math.round(currentPosition) + direction),
-        );
-        const targetProgress = Math.min(
-          1,
-          Math.max(0, targetIndex / Math.max(1, cards.length - 1)),
-        );
-        scrollTo({
-          top: section.offsetTop + targetProgress * travel,
-          behavior: "smooth",
-        });
-        return;
-      }
-
-      slider.scrollBy({ left: direction * distance, behavior: "smooth" });
-    });
-  });
 
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);

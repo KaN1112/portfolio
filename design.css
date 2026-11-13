@@ -819,27 +819,6 @@ footer h2 {
   object-fit: cover;
   background: var(--soft);
 }
-.server-slider-controls {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 24px;
-}
-.server-slider-controls button {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--paper);
-  font-size: 18px;
-  place-items: center;
-  cursor: pointer;
-}
-.server-slider-controls button:hover {
-  border-color: var(--orange);
-}
 .server-meta {
   display: flex;
   align-items: baseline;
@@ -891,6 +870,10 @@ footer h2 {
 .request-external p {
   color: var(--muted);
 }
+.fixed-line {
+  display: block;
+  white-space: nowrap;
+}
 .request-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -908,6 +891,9 @@ footer h2 {
 .request-steps p {
   max-width: none;
   color: var(--muted);
+}
+.request-steps li:last-child p {
+  white-space: nowrap;
 }
 .request-services {
   margin-top: 80px;
@@ -1297,6 +1283,18 @@ footer p {
     align-items: flex-start;
     flex-direction: column;
     gap: 6px;
+  }
+  .request-summary,
+  .request-guide-copy {
+    font-size: min(15px, 2.8vw);
+    letter-spacing: -0.02em;
+  }
+  .request-guide-intro h3 {
+    font-size: min(21px, 5vw);
+  }
+  .request-steps li:last-child p {
+    font-size: min(15px, 3.3vw);
+    letter-spacing: -0.02em;
   }
   footer {
     grid-template-columns: 1fr;
