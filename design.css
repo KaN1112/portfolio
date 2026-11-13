@@ -25,6 +25,9 @@ body.request-page {
   font-size: 15px;
   line-height: 1.8;
   overflow-x: clip;
+  line-break: strict;
+  word-break: auto-phrase;
+  overflow-wrap: break-word;
 }
 body::before,
 .grain,
@@ -550,10 +553,35 @@ body:not(.works-page) #works .work.is-active {
 }
 .commission > div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.7fr);
-  gap: 60px;
+  grid-template-areas:
+    "label label"
+    "title action"
+    "copy action"
+    "prices prices";
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.65fr);
+  gap: 18px 72px;
   width: min(100%, 1040px);
   margin: 0 auto;
+}
+.commission .label {
+  grid-area: label;
+  margin-bottom: 14px;
+}
+.commission h2 {
+  grid-area: title;
+}
+.commission > div > p:not(.label) {
+  grid-area: copy;
+  margin: 0;
+}
+.commission .contact-routes {
+  grid-area: action;
+  align-self: center;
+}
+.commission dl {
+  grid-area: prices;
+  width: 100%;
+  margin-top: 38px;
 }
 .commission h2,
 footer h2 {
@@ -723,7 +751,7 @@ footer h2 {
 }
 .process li {
   display: grid;
-  grid-template-columns: 56px minmax(90px, 160px) minmax(0, 1fr);
+  grid-template-columns: minmax(90px, 160px) minmax(0, 1fr);
   gap: 20px;
   align-items: start;
   padding: 22px 0;
@@ -861,6 +889,7 @@ footer h2 {
   color: var(--orange);
 }
 .request-steps p {
+  max-width: none;
   color: var(--muted);
 }
 .request-services {
@@ -1113,6 +1142,22 @@ footer p {
     flex-direction: column;
     padding: 32px 24px;
   }
+  .commission > div {
+    grid-template-areas:
+      "label"
+      "title"
+      "copy"
+      "action"
+      "prices";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .commission .contact-routes {
+    align-self: start;
+  }
+  .commission dl {
+    margin-top: 28px;
+  }
 
   .single-section {
     padding: 78px 0;
@@ -1158,12 +1203,12 @@ footer p {
     display: none;
   }
   .process li {
-    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
   .process li p {
-    grid-column: 1 / -1;
-    padding-left: 52px;
+    grid-column: auto;
+    padding-left: 0;
   }
   .request-services li {
     align-items: flex-start;
