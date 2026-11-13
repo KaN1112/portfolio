@@ -874,6 +874,12 @@ footer h2 {
   display: block;
   white-space: nowrap;
 }
+.request-summary,
+.request-guide-copy,
+.request-guide-intro h3 {
+  display: flex;
+  flex-direction: column;
+}
 .request-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
