@@ -369,7 +369,7 @@ body:not(.works-page) #works {
   height: 520vh;
   padding-top: 0;
   padding-bottom: 0;
-  background: var(--ink);
+  background: var(--paper);
 }
 
 body:not(.works-page) #works .wheel-stage {
@@ -392,7 +392,7 @@ body:not(.works-page) #works .section-head {
 
 body:not(.works-page) #works .section-head h2,
 body:not(.works-page) #works .section-head .label {
-  color: var(--paper);
+  color: var(--ink);
 }
 
 body:not(.works-page) #works .filters {
@@ -427,12 +427,12 @@ body:not(.works-page) #works .work .art img {
 }
 
 body:not(.works-page) #works .work .meta {
-  color: var(--paper);
+  color: var(--ink);
 }
 
 body:not(.works-page) #works .work .meta p,
 body:not(.works-page) #works .work .meta small {
-  color: #b7b7b7;
+  color: var(--muted);
 }
 
 body:not(.works-page) #works .work.is-active {
@@ -481,6 +481,17 @@ body:not(.works-page) #works .work.is-active {
   max-width: 620px;
   margin: 0;
   color: var(--muted);
+}
+
+.others-section .single-heading h2 {
+  grid-column: 1 / -1;
+  font-size: clamp(16px, 4.2vw, 52px);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+.others-section .single-heading > p:last-child {
+  grid-column: 1 / -1;
 }
 
 .thumbnail-category + .thumbnail-category,
