@@ -31,6 +31,64 @@ function initMenu() {
   });
 }
 
+function initActiveNavigation() {
+  const links = $$("#nav a[href^='#']");
+  const sections = links
+    .map((link) => ({ link, section: $(link.getAttribute("href")) }))
+    .filter(({ section }) => section);
+  if (sections.length === 0) return;
+
+  let frame = 0;
+  const render = () => {
+    frame = 0;
+    const marker = scrollY + ($("header")?.offsetHeight || 0) + 48;
+    let active = sections[0];
+
+    sections.forEach((entry) => {
+      if (entry.section.offsetTop <= marker) active = entry;
+    });
+
+    sections.forEach(({ link }) => {
+      if (link === active.link) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  const requestRender = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(render);
+  };
+
+  addEventListener("scroll", requestRender, { passive: true });
+  addEventListener("resize", requestRender);
+  addEventListener("pageshow", requestRender);
+  render();
+}
+
+function initServerSlider() {
+  const slider = $(".server-grid");
+  const controls = $$("[data-server-slide]");
+  if (!slider || controls.length === 0) return;
+
+  controls.forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = $("article", slider);
+      const gap = Number.parseFloat(getComputedStyle(slider).columnGap) || 0;
+      const distance =
+        (card?.getBoundingClientRect().width || slider.clientWidth) + gap;
+      slider.scrollBy({
+        left: button.dataset.serverSlide === "previous" ? -distance : distance,
+        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    });
+  });
+}
+
 function initWorkFilters() {
   $$(".filters button").forEach((button) => {
     button.addEventListener("click", () => {
@@ -213,6 +271,8 @@ function initThumbnailWheels() {
 }
 
 initMenu();
+initActiveNavigation();
+initServerSlider();
 initWorkFilters();
 initLightbox();
 initRotaryGallery();
