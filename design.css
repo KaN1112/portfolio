@@ -1147,8 +1147,12 @@ footer p {
     display: none;
   }
   .process li {
-    grid-template-columns: 40px 72px minmax(0, 1fr);
+    grid-template-columns: 40px minmax(0, 1fr);
     gap: 12px;
+  }
+  .process li p {
+    grid-column: 1 / -1;
+    padding-left: 52px;
   }
   .request-services li {
     align-items: flex-start;
