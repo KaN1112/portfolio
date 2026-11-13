@@ -71,7 +71,6 @@ function initActiveNavigation() {
 function initServerSlider() {
   const section = $(".server-showcase");
   const slider = $(".server-grid");
-  const desktop = matchMedia("(min-width: 901px)");
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (!section || !slider) return;
   const cards = $$("article", slider);
@@ -121,7 +120,7 @@ function initServerSlider() {
   };
 
   const updateTarget = () => {
-    if (!desktop.matches || reducedMotion.matches) {
+    if (reducedMotion.matches) {
       resetCards();
       return;
     }
@@ -133,7 +132,7 @@ function initServerSlider() {
 
   const animate = () => {
     frame = 0;
-    if (!desktop.matches || reducedMotion.matches) return;
+    if (reducedMotion.matches) return;
 
     const distance = targetPosition - currentPosition;
     currentPosition += distance * 0.1;
@@ -144,7 +143,7 @@ function initServerSlider() {
 
   const requestRender = () => {
     updateTarget();
-    if (!frame && desktop.matches && !reducedMotion.matches) {
+    if (!frame && !reducedMotion.matches) {
       frame = requestAnimationFrame(animate);
     }
   };
@@ -152,11 +151,10 @@ function initServerSlider() {
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
-  desktop.addEventListener("change", requestRender);
   reducedMotion.addEventListener("change", requestRender);
   updateTarget();
   currentPosition = targetPosition;
-  if (desktop.matches && !reducedMotion.matches) renderCards();
+  if (!reducedMotion.matches) renderCards();
 }
 
 function initWorkFilters() {

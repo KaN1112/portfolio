@@ -1096,35 +1096,18 @@ footer p {
     height: calc(100svh - 64px);
   }
   .server-showcase {
-    height: auto;
-    padding-bottom: 80px;
+    height: 380vh;
   }
   .server-slider-stage {
-    position: static;
-    display: block;
-    height: auto;
-    overflow: visible;
+    top: 64px;
+    height: calc(100svh - 64px);
   }
   .server-grid {
-    display: flex;
-    gap: 24px;
-    height: auto;
-    padding-bottom: 20px;
-    overflow-x: auto;
-    overflow-y: visible;
-    perspective: none;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    height: min(50svh, 420px);
+    perspective: 900px;
   }
   .server-grid article {
-    position: static;
-    flex: 0 0 clamp(280px, 72vw, 400px);
-    width: auto;
-    transform: none !important;
-    opacity: 1 !important;
-    pointer-events: auto;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    width: min(76vw, 320px);
   }
   .home-profile,
   .about-detail,
@@ -1371,7 +1354,25 @@ footer p {
     overflow: visible;
   }
   .server-grid {
+    display: flex;
+    gap: 24px;
+    height: auto;
+    padding-bottom: 20px;
     overflow-x: auto;
+    overflow-y: visible;
+    perspective: none;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .server-grid article {
+    position: static;
+    flex: 0 0 min(82vw, 360px);
+    width: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   body:not(.works-page) #works .section-head,
   body:not(.works-page) #works .grid {
