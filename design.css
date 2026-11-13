@@ -226,8 +226,7 @@ main {
   font-size: 16px;
   font-weight: 600;
 }
-.home-skills dl,
-.commission dl {
+.home-skills dl {
   margin: 0;
 }
 .home-skills dl > div {
@@ -449,12 +448,6 @@ body:not(.works-page) #works .work.is-active {
   z-index: 3;
   pointer-events: auto;
 }
-.commission {
-  padding: 100px 32px;
-  color: var(--ink);
-  background: var(--paper);
-}
-
 .single-section {
   width: var(--page);
   margin: 0 auto;
@@ -568,39 +561,6 @@ body:not(.works-page) #works .work.is-active {
   padding-left: max(32px, calc((100vw - 1240px) / 2));
   background: var(--soft);
 }
-.commission > div {
-  display: grid;
-  grid-template-areas:
-    "label label"
-    "title action"
-    "copy action"
-    "prices prices";
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.65fr);
-  gap: 18px 72px;
-  width: min(100%, 1040px);
-  margin: 0 auto;
-}
-.commission .label {
-  grid-area: label;
-  margin-bottom: 14px;
-}
-.commission h2 {
-  grid-area: title;
-}
-.commission > div > p:not(.label) {
-  grid-area: copy;
-  margin: 0;
-}
-.commission .contact-routes {
-  grid-area: action;
-  align-self: center;
-}
-.commission dl {
-  grid-area: prices;
-  width: 100%;
-  margin-top: 38px;
-}
-.commission h2,
 footer h2 {
   margin: 0 0 18px;
   font-family: "Zen Kurenaido", sans-serif;
@@ -608,31 +568,6 @@ footer h2 {
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: -0.01em;
-}
-.commission > div > p,
-.commission > div > div > p {
-  color: var(--muted);
-}
-.contact-routes a {
-  display: inline-flex;
-  flex-direction: column;
-  margin-top: 28px;
-  padding: 18px 22px;
-  color: var(--paper);
-  background: var(--ink);
-}
-.contact-routes small {
-  display: none;
-}
-.commission dl > div {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-}
-.commission dd {
-  margin: 0;
-  font-weight: 600;
 }
 .sub-hero,
 .request-guide-hero,
@@ -943,6 +878,24 @@ footer h2 {
 .request-services li span {
   color: var(--muted);
 }
+.request-pricing {
+  margin-top: 80px;
+}
+.request-pricing dl {
+  margin: 0;
+}
+.request-pricing dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.request-pricing dd {
+  flex: none;
+  margin: 0;
+  font-weight: 700;
+}
 .request-external {
   display: flex;
   align-items: end;
@@ -957,11 +910,28 @@ footer h2 {
 .request-external p {
   color: var(--paper);
 }
-.request-external a {
+.request-external h3 {
+  font-size: clamp(16px, 2.2vw, 28px);
+  white-space: nowrap;
+}
+.request-external a.btn-c {
   flex: none;
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
   padding: 14px 20px;
-  color: var(--ink);
-  background: var(--paper);
+  border: 1px solid var(--orange);
+  border-radius: 1rem;
+  color: var(--paper);
+  background: linear-gradient(0deg, var(--orange) 50%, #ff9147 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 5px 10px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.request-external .fa-position-right::before {
+  content: "→";
 }
 .request-legacy {
   min-height: 70vh;
@@ -1062,7 +1032,6 @@ footer p {
     height: calc(100svh - 64px);
   }
   .home-profile,
-  .commission > div,
   .about-detail,
   .request-guide-intro {
     grid-template-columns: 1fr;
@@ -1177,23 +1146,6 @@ footer p {
     flex-direction: column;
     padding: 32px 24px;
   }
-  .commission > div {
-    grid-template-areas:
-      "label"
-      "title"
-      "copy"
-      "action"
-      "prices";
-    grid-template-columns: minmax(0, 1fr);
-    gap: 18px;
-  }
-  .commission .contact-routes {
-    align-self: start;
-  }
-  .commission dl {
-    margin-top: 28px;
-  }
-
   .single-section {
     padding: 78px 0;
     scroll-margin-top: 64px;
