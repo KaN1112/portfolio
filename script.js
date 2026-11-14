@@ -207,7 +207,6 @@ function initRotaryGallery() {
   const stage = section ? $(".wheel-stage", section) : null;
   const items = section ? $$(".work", section) : [];
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  const desktop = matchMedia("(min-width: 901px)");
   if (!section || !stage || items.length === 0) return;
 
   let frame = 0;
@@ -223,18 +222,29 @@ function initRotaryGallery() {
 
   const render = () => {
     frame = 0;
-    if (!desktop.matches || reducedMotion.matches) {
+    if (reducedMotion.matches) {
       reset();
       return;
     }
+
+    section.style.height = `${Math.max(
+      innerWidth <= 900 ? 300 : 420,
+      items.length * (innerWidth <= 900 ? 38 : 52),
+    )}vh`;
 
     const rect = section.getBoundingClientRect();
     const travel = Math.max(1, section.offsetHeight - innerHeight);
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
     const position = progress * (items.length - 1);
     const activeIndex = Math.round(position);
-    const radiusX = Math.min(stage.clientWidth * 0.44, 540);
-    const radiusY = Math.min(stage.clientHeight * 0.38, 300);
+    const radiusX = Math.min(
+      stage.clientWidth * (innerWidth <= 900 ? 0.4 : 0.44),
+      540,
+    );
+    const radiusY = Math.min(
+      stage.clientHeight * (innerWidth <= 900 ? 0.22 : 0.38),
+      300,
+    );
 
     items.forEach((item, index) => {
       const offset = index - position;
@@ -262,7 +272,6 @@ function initRotaryGallery() {
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
   reducedMotion.addEventListener("change", requestRender);
-  desktop.addEventListener("change", requestRender);
   render();
 }
 
@@ -273,7 +282,6 @@ function initThumbnailWheels() {
     items: $$(".gallery-item", section),
   }));
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  const desktop = matchMedia("(min-width: 901px)");
   if (wheels.length === 0) return;
 
   let frame = 0;
@@ -292,20 +300,29 @@ function initThumbnailWheels() {
 
   const render = () => {
     frame = 0;
-    if (!desktop.matches || reducedMotion.matches) {
+    if (reducedMotion.matches) {
       reset();
       return;
     }
 
     wheels.forEach(({ section, stage, items }) => {
-      section.style.height = `${Math.max(360, items.length * 52)}vh`;
+      section.style.height = `${Math.max(
+        innerWidth <= 900 ? 300 : 360,
+        items.length * (innerWidth <= 900 ? 38 : 52),
+      )}vh`;
       const rect = section.getBoundingClientRect();
       const travel = Math.max(1, section.offsetHeight - innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
       const position = progress * (items.length - 1);
       const activeIndex = Math.round(position);
-      const radiusX = Math.min(stage.clientWidth * 0.44, 560);
-      const radiusY = Math.min(stage.clientHeight * 0.36, 280);
+      const radiusX = Math.min(
+        stage.clientWidth * (innerWidth <= 900 ? 0.4 : 0.44),
+        560,
+      );
+      const radiusY = Math.min(
+        stage.clientHeight * (innerWidth <= 900 ? 0.22 : 0.36),
+        280,
+      );
 
       items.forEach((item, index) => {
         const offset = index - position;
@@ -334,8 +351,150 @@ function initThumbnailWheels() {
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
   reducedMotion.addEventListener("change", requestRender);
-  desktop.addEventListener("change", requestRender);
   render();
+}
+
+function initRevealAnimations() {
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const selectors = [
+    ".single-heading",
+    ".about-detail > div",
+    ".process",
+    ".home-profile__intro",
+    ".home-skills",
+    ".thumbnail-category-heading",
+    ".motion-heading",
+    ".motion-grid > article",
+    ".server-heading",
+    ".request-guide-intro",
+    ".request-steps > li",
+    ".request-services",
+    ".request-pricing",
+    ".request-external",
+    "footer > div",
+    "footer nav",
+  ];
+  const items = $$(selectors.join(", "));
+  if (items.length === 0 || reducedMotion.matches) return;
+
+  document.documentElement.classList.add("reveal-enabled");
+  items.forEach((item, index) => {
+    item.classList.add("reveal-item");
+    item.style.setProperty("--reveal-delay", `${(index % 3) * 60}ms`);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -16% 0px", threshold: 0.06 },
+  );
+
+  items.forEach((item) => observer.observe(item));
+}
+
+function initScrollColorText() {
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const selectors = [
+    ".single-heading h2",
+    ".single-heading > p:last-child",
+    ".about-detail h3",
+    ".about-detail p",
+    ".home-profile__copy > p",
+    ".thumbnail-category-heading h3",
+    ".motion-heading h3",
+    ".motion-heading p",
+    ".server-heading h3",
+    ".server-heading p",
+    ".request-guide-intro h3",
+    ".request-guide-intro p",
+    ".process h3",
+  ];
+  const segmenter =
+    "Segmenter" in Intl
+      ? new Intl.Segmenter("ja", { granularity: "grapheme" })
+      : null;
+  const targets = [];
+
+  const splitTextNode = (node, chars) => {
+    const text = node.nodeValue;
+    const graphemes = segmenter
+      ? [...segmenter.segment(text)].map(({ segment }) => segment)
+      : Array.from(text);
+    const fragment = document.createDocumentFragment();
+
+    graphemes.forEach((grapheme) => {
+      const span = document.createElement("span");
+      span.className = "color-char";
+      span.setAttribute("aria-hidden", "true");
+      span.textContent = grapheme;
+      fragment.append(span);
+      if (grapheme.trim()) chars.push(span);
+    });
+    node.replaceWith(fragment);
+  };
+
+  $$(selectors.join(", ")).forEach((target) => {
+    if (
+      target.closest("a, button") ||
+      target.classList.contains("color-text-ready")
+    )
+      return;
+    const accessibleText = target.textContent.replace(/\s+/g, " ").trim();
+    const nodes = [];
+    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const chars = [];
+    nodes.forEach((node) => splitTextNode(node, chars));
+    if (chars.length === 0) return;
+    target.classList.add("color-text-ready");
+    target.setAttribute("aria-label", accessibleText);
+    targets.push({ target, chars, progress: -1 });
+  });
+
+  if (targets.length === 0) return;
+
+  let frame = 0;
+  const paint = () => {
+    frame = 0;
+    targets.forEach((entry) => {
+      const rect = entry.target.getBoundingClientRect();
+      const progress = reducedMotion.matches
+        ? 1
+        : Math.min(
+            1,
+            Math.max(
+              0,
+              (innerHeight * 0.86 - rect.top) /
+                (innerHeight * 0.5 + rect.height),
+            ),
+          );
+      if (Math.abs(progress - entry.progress) < 0.001) return;
+      entry.progress = progress;
+      const reach = progress * (entry.chars.length + 2);
+      entry.chars.forEach((char, index) => {
+        const mix = Math.min(1, Math.max(0, reach - index));
+        const channel = Math.round(184 + (23 - 184) * mix);
+        char.style.color = `rgb(${channel}, ${channel}, ${channel})`;
+      });
+    });
+  };
+
+  const requestPaint = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(paint);
+  };
+
+  addEventListener("scroll", requestPaint, { passive: true });
+  addEventListener("resize", requestPaint);
+  addEventListener("pageshow", requestPaint);
+  reducedMotion.addEventListener("change", requestPaint);
+  document.fonts?.ready.then(requestPaint);
+  paint();
 }
 
 initMenu();
@@ -345,3 +504,5 @@ initWorkFilters();
 initLightbox();
 initRotaryGallery();
 initThumbnailWheels();
+initRevealAnimations();
+initScrollColorText();
