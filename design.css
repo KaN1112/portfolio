@@ -149,6 +149,22 @@ main {
 .color-text-ready .color-char {
   color: #b8b8b8;
 }
+.color-line-clip {
+  display: block;
+  overflow: hidden;
+}
+.color-line {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.76s ease-out var(--line-delay, 0ms),
+    transform 0.76s cubic-bezier(0.2, 0.72, 0.2, 1) var(--line-delay, 0ms);
+}
+.color-text-ready.line-text-visible .color-line {
+  opacity: 1;
+  transform: translateY(0);
+}
 .hero-copy {
   display: flex;
   flex-direction: column;
@@ -1267,11 +1283,24 @@ footer p {
 }
 @media (max-width: 560px) {
   .reveal-enabled .reveal-item {
-    transform: translateY(18px);
+    transform: translateY(24px);
     transition-duration: 0.62s;
   }
   .reveal-enabled .reveal-item.is-visible {
     transform: translateY(0);
+  }
+  .color-line {
+    transform: translateY(24px);
+    transition-duration: 0.66s;
+  }
+  footer {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  footer h2 {
+    font-size: clamp(18px, 5.3vw, 24px);
+    letter-spacing: -0.06em;
+    white-space: nowrap;
   }
   .others-section .single-heading {
     width: calc(100% + 24px);
@@ -1368,6 +1397,10 @@ footer p {
   }
   .color-text-ready .color-char {
     color: var(--ink) !important;
+  }
+  .color-line {
+    opacity: 1;
+    transform: none;
   }
   body:not(.works-page) #works {
     height: auto;

@@ -374,7 +374,11 @@ function initRevealAnimations() {
     "footer > div",
     "footer nav",
   ];
-  const items = $$(selectors.join(", "));
+  const items = $$(selectors.join(", ")).filter(
+    (item) =>
+      !item.matches(".color-text-ready") &&
+      !item.querySelector(".color-text-ready"),
+  );
   if (items.length === 0 || reducedMotion.matches) return;
 
   document.documentElement.classList.add("reveal-enabled");
@@ -419,9 +423,14 @@ function initScrollColorText() {
       ? new Intl.Segmenter("ja", { granularity: "grapheme" })
       : null;
   const targets = [];
+  let lineObserver;
 
   const splitTextNode = (node, chars) => {
     const text = node.nodeValue;
+    if (!text.trim() && /[\r\n]/.test(text)) {
+      node.remove();
+      return;
+    }
     const graphemes = segmenter
       ? [...segmenter.segment(text)].map(({ segment }) => segment)
       : Array.from(text);
@@ -429,13 +438,71 @@ function initScrollColorText() {
 
     graphemes.forEach((grapheme) => {
       const span = document.createElement("span");
-      span.className = "color-char";
+      span.className = grapheme.trim() ? "color-char" : "color-space";
       span.setAttribute("aria-hidden", "true");
       span.textContent = grapheme;
       fragment.append(span);
       if (grapheme.trim()) chars.push(span);
     });
     node.replaceWith(fragment);
+  };
+
+  const wrapVisualLines = (entry) => {
+    const groups = [];
+    const parents = new Set(
+      $$(".color-char, .color-space", entry.target).map(
+        (character) => character.parentElement,
+      ),
+    );
+
+    parents.forEach((parent) => {
+      let current = [];
+      let currentTop;
+      [...parent.children].forEach((child) => {
+        if (!child.matches(".color-char, .color-space")) {
+          if (current.length) groups.push(current);
+          current = [];
+          currentTop = undefined;
+          return;
+        }
+        const top = Math.round(child.getBoundingClientRect().top);
+        if (current.length && Math.abs(top - currentTop) > 2) {
+          groups.push(current);
+          current = [];
+        }
+        if (current.length === 0) currentTop = top;
+        current.push(child);
+      });
+      if (current.length) groups.push(current);
+    });
+
+    groups.forEach((group, index) => {
+      if (!group.some((node) => node.textContent.trim())) return;
+      const clip = document.createElement("span");
+      const line = document.createElement("span");
+      clip.className = "color-line-clip";
+      line.className = "color-line";
+      line.style.setProperty("--line-delay", `${Math.min(index * 70, 280)}ms`);
+      group[0].before(clip);
+      clip.append(line);
+      group.forEach((node) => line.append(node));
+    });
+  };
+
+  const buildEntry = (entry) => {
+    entry.target.innerHTML = entry.source;
+    const nodes = [];
+    const walker = document.createTreeWalker(
+      entry.target,
+      NodeFilter.SHOW_TEXT,
+    );
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    entry.chars = [];
+    nodes.forEach((node) => splitTextNode(node, entry.chars));
+    entry.progress = -1;
+    entry.target.classList.add("color-text-ready");
+    entry.target.setAttribute("aria-label", entry.accessibleText);
+    wrapVisualLines(entry);
   };
 
   $$(selectors.join(", ")).forEach((target) => {
@@ -445,18 +512,31 @@ function initScrollColorText() {
     )
       return;
     const accessibleText = target.textContent.replace(/\s+/g, " ").trim();
-    const nodes = [];
-    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    const chars = [];
-    nodes.forEach((node) => splitTextNode(node, chars));
-    if (chars.length === 0) return;
-    target.classList.add("color-text-ready");
-    target.setAttribute("aria-label", accessibleText);
-    targets.push({ target, chars, progress: -1 });
+    const entry = {
+      target,
+      source: target.innerHTML,
+      accessibleText,
+      chars: [],
+      progress: -1,
+    };
+    buildEntry(entry);
+    if (entry.chars.length === 0) return;
+    targets.push(entry);
   });
 
   if (targets.length === 0) return;
+
+  lineObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("line-text-visible");
+        lineObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -14% 0px", threshold: 0.04 },
+  );
+  targets.forEach((entry) => lineObserver.observe(entry.target));
 
   let frame = 0;
   const paint = () => {
@@ -489,11 +569,20 @@ function initScrollColorText() {
     frame = requestAnimationFrame(paint);
   };
 
+  let resizeTimer;
+  const rebuildLines = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      targets.forEach(buildEntry);
+      requestPaint();
+    }, 120);
+  };
+
   addEventListener("scroll", requestPaint, { passive: true });
-  addEventListener("resize", requestPaint);
+  addEventListener("resize", rebuildLines);
   addEventListener("pageshow", requestPaint);
   reducedMotion.addEventListener("change", requestPaint);
-  document.fonts?.ready.then(requestPaint);
+  document.fonts?.ready.then(rebuildLines);
   paint();
 }
 
@@ -504,5 +593,5 @@ initWorkFilters();
 initLightbox();
 initRotaryGallery();
 initThumbnailWheels();
-initRevealAnimations();
 initScrollColorText();
+initRevealAnimations();
