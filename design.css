@@ -417,6 +417,8 @@ body:not(.works-page) #works .wheel-stage {
   width: 100%;
   height: calc(100vh - 72px);
   overflow: clip;
+  perspective: 1400px;
+  perspective-origin: 50% 54%;
 }
 
 body:not(.works-page) #works .section-head {
@@ -445,6 +447,7 @@ body:not(.works-page) #works .grid {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  transform-style: preserve-3d;
 }
 
 body:not(.works-page) #works .work {
@@ -452,13 +455,22 @@ body:not(.works-page) #works .work {
   top: 54%;
   left: 50%;
   width: min(42vw, 620px);
-  transform: translate(-50%, -50%)
-    translate(var(--wheel-x, 0), var(--wheel-y, 0))
+  transform: translate3d(-50%, -50%, 0)
+    translate3d(var(--wheel-x, 0), var(--wheel-y, 0), var(--wheel-z, 0))
+    rotateY(var(--wheel-rotate-y, 0deg))
+    rotateZ(var(--wheel-rotate-z, 0deg))
     scale(var(--wheel-scale, 0.55));
   transform-origin: center;
   opacity: var(--wheel-opacity, 0.18);
+  filter: blur(var(--wheel-blur, 0));
   pointer-events: none;
-  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+body:not(.works-page) #works .work .art {
+  box-shadow: 0 24px 64px rgba(23, 23, 23, 0.14);
+  transition: box-shadow 420ms ease;
 }
 
 body:not(.works-page) #works .work .art img {
@@ -478,6 +490,10 @@ body:not(.works-page) #works .work.is-active {
   --wheel-opacity: 1;
   z-index: 3;
   pointer-events: auto;
+}
+
+body:not(.works-page) #works .work.is-active .art {
+  box-shadow: 0 34px 90px rgba(23, 23, 23, 0.24);
 }
 .single-section {
   width: var(--page);
@@ -1201,8 +1217,10 @@ footer p {
     top: 55%;
     left: 50%;
     width: min(78vw, 430px);
-    transform: translate(-50%, -50%)
-      translate(var(--wheel-x, 0), var(--wheel-y, 0))
+    transform: translate3d(-50%, -50%, 0)
+      translate3d(var(--wheel-x, 0), var(--wheel-y, 0), var(--wheel-z, 0))
+      rotateY(var(--wheel-rotate-y, 0deg))
+      rotateZ(var(--wheel-rotate-z, 0deg))
       scale(var(--wheel-scale, 0.55));
     opacity: var(--wheel-opacity, 0.18);
   }

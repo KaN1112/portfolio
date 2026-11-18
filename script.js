@@ -210,14 +210,21 @@ function initRotaryGallery() {
   if (!section || !stage || items.length === 0) return;
 
   let frame = 0;
+  let currentPosition = null;
   const reset = () => {
     items.forEach((item) => {
       item.style.removeProperty("--wheel-x");
       item.style.removeProperty("--wheel-y");
+      item.style.removeProperty("--wheel-z");
       item.style.removeProperty("--wheel-scale");
       item.style.removeProperty("--wheel-opacity");
+      item.style.removeProperty("--wheel-rotate-y");
+      item.style.removeProperty("--wheel-rotate-z");
+      item.style.removeProperty("--wheel-blur");
+      item.style.removeProperty("z-index");
       item.classList.remove("is-active");
     });
+    currentPosition = null;
   };
 
   const render = () => {
@@ -235,7 +242,13 @@ function initRotaryGallery() {
     const rect = section.getBoundingClientRect();
     const travel = Math.max(1, section.offsetHeight - innerHeight);
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
-    const position = progress * (items.length - 1);
+    const targetPosition = progress * (items.length - 1);
+    if (currentPosition === null) currentPosition = targetPosition;
+    currentPosition += (targetPosition - currentPosition) * 0.14;
+    if (Math.abs(targetPosition - currentPosition) < 0.001) {
+      currentPosition = targetPosition;
+    }
+    const position = currentPosition;
     const activeIndex = Math.round(position);
     const radiusX = Math.min(
       stage.clientWidth * (innerWidth <= 900 ? 0.4 : 0.44),
@@ -248,19 +261,39 @@ function initRotaryGallery() {
 
     items.forEach((item, index) => {
       const offset = index - position;
-      const angle = offset * 0.72;
+      const compact = innerWidth <= 900;
+      const angle = offset * (compact ? 0.76 : 0.68);
       const distance = Math.abs(offset);
       const x = Math.sin(angle) * radiusX;
       const y = (1 - Math.cos(angle)) * radiusY;
-      const scale = Math.max(0.48, 1 - distance * 0.18);
-      const opacity = Math.max(0.08, 1 - distance * 0.38);
+      const z = -Math.min(distance * (compact ? 70 : 150), 520);
+      const scale = Math.max(compact ? 0.56 : 0.5, 1 - distance * 0.17);
+      const opacity = Math.max(0.06, 1 - distance * 0.34);
+      const rotateY = Math.max(
+        -54,
+        Math.min(54, offset * (compact ? -8 : -17)),
+      );
+      const rotateZ = Math.max(
+        -8,
+        Math.min(8, offset * (compact ? 1.5 : 3.2)),
+      );
+      const blur = compact ? 0 : Math.min(distance * 1.15, 3.5);
 
       item.style.setProperty("--wheel-x", `${x.toFixed(2)}px`);
       item.style.setProperty("--wheel-y", `${y.toFixed(2)}px`);
+      item.style.setProperty("--wheel-z", `${z.toFixed(2)}px`);
       item.style.setProperty("--wheel-scale", scale.toFixed(3));
       item.style.setProperty("--wheel-opacity", opacity.toFixed(3));
+      item.style.setProperty("--wheel-rotate-y", `${rotateY.toFixed(2)}deg`);
+      item.style.setProperty("--wheel-rotate-z", `${rotateZ.toFixed(2)}deg`);
+      item.style.setProperty("--wheel-blur", `${blur.toFixed(2)}px`);
+      item.style.zIndex = String(Math.max(1, 100 - Math.round(distance * 10)));
       item.classList.toggle("is-active", index === activeIndex);
     });
+
+    if (currentPosition !== targetPosition) {
+      frame = requestAnimationFrame(render);
+    }
   };
 
   const requestRender = () => {
