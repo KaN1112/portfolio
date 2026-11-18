@@ -369,34 +369,26 @@ function initThumbnailWheels() {
       }
       const position = wheel.currentPosition;
       const activeIndex = Math.round(position);
-      const radiusX = Math.min(
-        stage.clientWidth * (innerWidth <= 900 ? 0.4 : 0.44),
-        560,
-      );
-      const radiusY = Math.min(
-        stage.clientHeight * (innerWidth <= 900 ? 0.22 : 0.36),
-        280,
+      const compact = innerWidth <= 900;
+      const cardSpacing = Math.min(
+        stage.clientWidth * (compact ? 0.3 : 0.245),
+        compact ? 210 : 330,
       );
 
       items.forEach((item, index) => {
         const offset = index - position;
-        const compact = innerWidth <= 900;
-        const angle = offset * (compact ? 0.76 : 0.66);
         const distance = Math.abs(offset);
-        const x = Math.sin(angle) * radiusX;
-        const y = (1 - Math.cos(angle)) * radiusY;
-        const z = -Math.min(distance * (compact ? 64 : 135), 480);
-        const scale = Math.max(compact ? 0.56 : 0.48, 1 - distance * 0.17);
-        const opacity = Math.max(0.05, 1 - distance * 0.34);
+        const x = offset * cardSpacing;
+        const y = Math.min(distance * (compact ? 5 : 8), 24);
+        const z = -Math.min(distance * (compact ? 80 : 170), 560);
+        const scale = Math.max(compact ? 0.7 : 0.66, 1 - distance * 0.15);
+        const opacity = Math.max(0.08, 1 - distance * 0.27);
         const rotateY = Math.max(
-          -50,
-          Math.min(50, offset * (compact ? -7 : -15)),
+          -42,
+          Math.min(42, offset * (compact ? -13 : -21)),
         );
-        const rotateZ = Math.max(
-          -7,
-          Math.min(7, offset * (compact ? 1.2 : 2.8)),
-        );
-        const blur = compact ? 0 : Math.min(distance, 3);
+        const rotateZ = 0;
+        const blur = compact ? 0 : Math.max(0, Math.min((distance - 1) * 0.7, 2));
 
         item.style.setProperty("--thumb-x", `${x.toFixed(2)}px`);
         item.style.setProperty("--thumb-y", `${y.toFixed(2)}px`);

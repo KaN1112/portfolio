@@ -663,8 +663,8 @@ footer h2 {
   top: 72px;
   height: calc(100vh - 72px);
   overflow: clip;
-  perspective: 1400px;
-  perspective-origin: 50% 54%;
+  perspective: 1200px;
+  perspective-origin: 50% 52%;
 }
 
 .thumbnail-wheel-stage .thumbnail-category-heading {
@@ -687,7 +687,7 @@ footer h2 {
 .thumbnail-wheel-stage .gallery-item,
 .thumbnail-wheel-stage .gallery-item:nth-child(n) {
   position: absolute;
-  top: 54%;
+  top: 52%;
   left: 50%;
   width: min(44vw, 660px);
   transform: translate3d(-50%, -50%, 0)
@@ -718,6 +718,17 @@ footer h2 {
 
 .thumbnail-wheel-stage .gallery-item.is-active img {
   box-shadow: 0 34px 90px rgba(23, 23, 23, 0.24);
+}
+
+.thumbnail-wheel-stage .gallery-item:not(.is-active) figcaption {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.thumbnail-wheel-stage .gallery-item figcaption {
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
 }
 .gallery-item {
   grid-column: span 4;
@@ -1279,7 +1290,7 @@ footer p {
   .thumbnail-wheel-stage .gallery-item,
   .thumbnail-wheel-stage .gallery-item:nth-child(n) {
     position: absolute;
-    top: 55%;
+    top: 53%;
     left: 50%;
     width: min(78vw, 430px);
     transform: translate3d(-50%, -50%, 0)
