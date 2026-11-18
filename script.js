@@ -313,21 +313,29 @@ function initThumbnailWheels() {
     section,
     stage: $(".thumbnail-wheel-stage", section),
     items: $$(".gallery-item", section),
+    currentPosition: null,
   }));
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (wheels.length === 0) return;
 
   let frame = 0;
   const reset = () => {
-    wheels.forEach(({ section, items }) => {
+    wheels.forEach((wheel) => {
+      const { section, items } = wheel;
       section.style.removeProperty("height");
       items.forEach((item) => {
         item.style.removeProperty("--thumb-x");
         item.style.removeProperty("--thumb-y");
+        item.style.removeProperty("--thumb-z");
         item.style.removeProperty("--thumb-scale");
         item.style.removeProperty("--thumb-opacity");
+        item.style.removeProperty("--thumb-rotate-y");
+        item.style.removeProperty("--thumb-rotate-z");
+        item.style.removeProperty("--thumb-blur");
+        item.style.removeProperty("z-index");
         item.classList.remove("is-active");
       });
+      wheel.currentPosition = null;
     });
   };
 
@@ -338,7 +346,9 @@ function initThumbnailWheels() {
       return;
     }
 
-    wheels.forEach(({ section, stage, items }) => {
+    let isAnimating = false;
+    wheels.forEach((wheel) => {
+      const { section, stage, items } = wheel;
       section.style.height = `${Math.max(
         innerWidth <= 900 ? 300 : 360,
         items.length * (innerWidth <= 900 ? 38 : 52),
@@ -346,7 +356,18 @@ function initThumbnailWheels() {
       const rect = section.getBoundingClientRect();
       const travel = Math.max(1, section.offsetHeight - innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
-      const position = progress * (items.length - 1);
+      const targetPosition = progress * (items.length - 1);
+      if (wheel.currentPosition === null) {
+        wheel.currentPosition = targetPosition;
+      }
+      wheel.currentPosition +=
+        (targetPosition - wheel.currentPosition) * 0.13;
+      if (Math.abs(targetPosition - wheel.currentPosition) < 0.001) {
+        wheel.currentPosition = targetPosition;
+      } else {
+        isAnimating = true;
+      }
+      const position = wheel.currentPosition;
       const activeIndex = Math.round(position);
       const radiusX = Math.min(
         stage.clientWidth * (innerWidth <= 900 ? 0.4 : 0.44),
@@ -359,20 +380,40 @@ function initThumbnailWheels() {
 
       items.forEach((item, index) => {
         const offset = index - position;
-        const angle = offset * 0.7;
+        const compact = innerWidth <= 900;
+        const angle = offset * (compact ? 0.76 : 0.66);
         const distance = Math.abs(offset);
         const x = Math.sin(angle) * radiusX;
         const y = (1 - Math.cos(angle)) * radiusY;
-        const scale = Math.max(0.46, 1 - distance * 0.18);
-        const opacity = Math.max(0.06, 1 - distance * 0.4);
+        const z = -Math.min(distance * (compact ? 64 : 135), 480);
+        const scale = Math.max(compact ? 0.56 : 0.48, 1 - distance * 0.17);
+        const opacity = Math.max(0.05, 1 - distance * 0.34);
+        const rotateY = Math.max(
+          -50,
+          Math.min(50, offset * (compact ? -7 : -15)),
+        );
+        const rotateZ = Math.max(
+          -7,
+          Math.min(7, offset * (compact ? 1.2 : 2.8)),
+        );
+        const blur = compact ? 0 : Math.min(distance, 3);
 
         item.style.setProperty("--thumb-x", `${x.toFixed(2)}px`);
         item.style.setProperty("--thumb-y", `${y.toFixed(2)}px`);
+        item.style.setProperty("--thumb-z", `${z.toFixed(2)}px`);
         item.style.setProperty("--thumb-scale", scale.toFixed(3));
         item.style.setProperty("--thumb-opacity", opacity.toFixed(3));
+        item.style.setProperty("--thumb-rotate-y", `${rotateY.toFixed(2)}deg`);
+        item.style.setProperty("--thumb-rotate-z", `${rotateZ.toFixed(2)}deg`);
+        item.style.setProperty("--thumb-blur", `${blur.toFixed(2)}px`);
+        item.style.zIndex = String(
+          Math.max(1, 100 - Math.round(distance * 10)),
+        );
         item.classList.toggle("is-active", index === activeIndex);
       });
     });
+
+    if (isAnimating) frame = requestAnimationFrame(render);
   };
 
   const requestRender = () => {
