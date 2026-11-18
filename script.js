@@ -82,35 +82,48 @@ function initServerSlider() {
   const resetCards = () => {
     cards.forEach((card) => {
       card.style.removeProperty("--server-card-x");
+      card.style.removeProperty("--server-card-y");
       card.style.removeProperty("--server-card-z");
       card.style.removeProperty("--server-card-rotate");
       card.style.removeProperty("--server-card-scale");
       card.style.removeProperty("--server-card-opacity");
+      card.style.removeProperty("--server-card-blur");
       card.style.removeProperty("--server-card-depth");
       card.classList.remove("is-active");
     });
   };
 
   const renderCards = () => {
-    const radiusX = Math.min(slider.clientWidth * 0.43, 500);
-    const radiusZ = Math.min(slider.clientWidth * 0.34, 390);
+    const compact = innerWidth <= 900;
+    const cardSpacing = Math.min(
+      slider.clientWidth * (compact ? 0.3 : 0.245),
+      compact ? 210 : 330,
+    );
     const activeIndex = Math.round(currentPosition);
 
     cards.forEach((card, index) => {
       const offset = index - currentPosition;
-      const angle = offset * 0.72;
       const distance = Math.abs(offset);
-      const x = Math.sin(angle) * radiusX;
-      const z = (Math.cos(angle) - 1) * radiusZ;
-      const rotate = Math.sin(angle) * -24;
-      const scale = Math.max(0.72, 1 - distance * 0.08);
-      const opacity = Math.max(0.18, 1 - distance * 0.3);
+      const x = offset * cardSpacing;
+      const y = Math.min(distance * (compact ? 5 : 8), 24);
+      const z = -Math.min(distance * (compact ? 80 : 170), 560);
+      const rotate = Math.max(
+        -42,
+        Math.min(42, offset * (compact ? -13 : -21)),
+      );
+      const scale = Math.max(compact ? 0.7 : 0.66, 1 - distance * 0.15);
+      const opacity = Math.max(0.08, 1 - distance * 0.27);
+      const blur = compact
+        ? 0
+        : Math.max(0, Math.min((distance - 1) * 0.7, 2));
 
       card.style.setProperty("--server-card-x", `${x.toFixed(2)}px`);
+      card.style.setProperty("--server-card-y", `${y.toFixed(2)}px`);
       card.style.setProperty("--server-card-z", `${z.toFixed(2)}px`);
       card.style.setProperty("--server-card-rotate", `${rotate.toFixed(2)}deg`);
       card.style.setProperty("--server-card-scale", scale.toFixed(3));
       card.style.setProperty("--server-card-opacity", opacity.toFixed(3));
+      card.style.setProperty("--server-card-blur", `${blur.toFixed(2)}px`);
       card.style.setProperty(
         "--server-card-depth",
         String(100 - Math.round(distance * 10)),
@@ -135,7 +148,7 @@ function initServerSlider() {
     if (reducedMotion.matches) return;
 
     const distance = targetPosition - currentPosition;
-    currentPosition += distance * 0.1;
+    currentPosition += distance * 0.13;
     renderCards();
 
     if (Math.abs(distance) > 0.002) frame = requestAnimationFrame(animate);

@@ -896,13 +896,19 @@ footer h2 {
   top: 50%;
   left: 50%;
   width: min(32vw, 400px);
-  transform: translate(-50%, -50%) translateX(var(--server-card-x, 0))
-    translateZ(var(--server-card-z, 0)) rotateY(var(--server-card-rotate, 0deg))
+  transform: translate3d(-50%, -50%, 0)
+    translate3d(
+      var(--server-card-x, 0),
+      var(--server-card-y, 0),
+      var(--server-card-z, 0)
+    )
+    rotateY(var(--server-card-rotate, 0deg))
     scale(var(--server-card-scale, 1));
   transform-origin: center;
   opacity: var(--server-card-opacity, 1);
+  filter: blur(var(--server-card-blur, 0));
   pointer-events: none;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 .server-grid article.is-active {
   pointer-events: auto;
@@ -912,12 +918,24 @@ footer h2 {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   background: var(--soft);
+  box-shadow: 0 24px 64px rgba(23, 23, 23, 0.14);
+  transition: box-shadow 420ms ease;
+}
+.server-grid article.is-active img {
+  box-shadow: 0 34px 90px rgba(23, 23, 23, 0.24);
 }
 .server-meta {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   padding-top: 14px;
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+.server-grid article:not(.is-active) .server-meta {
+  opacity: 0;
+  transform: translateY(6px);
 }
 .server-meta span {
   display: none;
