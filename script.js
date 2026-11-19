@@ -3,6 +3,58 @@ const $$ = (selector, context = document) => [
   ...context.querySelectorAll(selector),
 ];
 
+const MOTION_STORAGE_KEY = "kan-portfolio-motion";
+const motionListeners = new Set();
+let motionEnabled = true;
+
+try {
+  motionEnabled = localStorage.getItem(MOTION_STORAGE_KEY) !== "off";
+} catch {
+  motionEnabled = true;
+}
+
+document.documentElement.dataset.motion = motionEnabled ? "on" : "off";
+
+function isMotionEnabled() {
+  return motionEnabled;
+}
+
+function setMotionEnabled(enabled) {
+  motionEnabled = enabled;
+  document.documentElement.dataset.motion = enabled ? "on" : "off";
+  try {
+    localStorage.setItem(MOTION_STORAGE_KEY, enabled ? "on" : "off");
+  } catch {}
+  motionListeners.forEach((listener) => listener(enabled));
+}
+
+function onMotionPreferenceChange(listener) {
+  motionListeners.add(listener);
+}
+
+function initMotionToggle() {
+  const button = $(".motion-toggle");
+  if (!button) return;
+
+  const update = () => {
+    const enabled = isMotionEnabled();
+    button.setAttribute("aria-pressed", String(enabled));
+    button.setAttribute(
+      "aria-label",
+      enabled ? "アニメーションをオフにする" : "アニメーションをオンにする",
+    );
+    const status = $(".motion-toggle__status", button);
+    if (status) status.textContent = enabled ? "ON" : "OFF";
+  };
+
+  button.addEventListener("click", () => {
+    setMotionEnabled(!isMotionEnabled());
+    update();
+  });
+  onMotionPreferenceChange(update);
+  update();
+}
+
 function initMenu() {
   const button = $(".menu");
   const nav = $("#nav");
@@ -71,7 +123,6 @@ function initActiveNavigation() {
 function initServerSlider() {
   const section = $(".server-showcase");
   const slider = $(".server-grid");
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (!section || !slider) return;
   const cards = $$("article", slider);
 
@@ -133,7 +184,7 @@ function initServerSlider() {
   };
 
   const updateTarget = () => {
-    if (reducedMotion.matches) {
+    if (!isMotionEnabled()) {
       resetCards();
       return;
     }
@@ -145,7 +196,7 @@ function initServerSlider() {
 
   const animate = () => {
     frame = 0;
-    if (reducedMotion.matches) return;
+    if (!isMotionEnabled()) return;
 
     const distance = targetPosition - currentPosition;
     currentPosition += distance * 0.13;
@@ -156,7 +207,7 @@ function initServerSlider() {
 
   const requestRender = () => {
     updateTarget();
-    if (!frame && !reducedMotion.matches) {
+    if (!frame && isMotionEnabled()) {
       frame = requestAnimationFrame(animate);
     }
   };
@@ -164,10 +215,14 @@ function initServerSlider() {
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
-  reducedMotion.addEventListener("change", requestRender);
+  onMotionPreferenceChange((enabled) => {
+    if (!enabled && frame) cancelAnimationFrame(frame);
+    frame = 0;
+    requestRender();
+  });
   updateTarget();
   currentPosition = targetPosition;
-  if (!reducedMotion.matches) renderCards();
+  if (isMotionEnabled()) renderCards();
 }
 
 function initWorkFilters() {
@@ -219,12 +274,12 @@ function initRotaryGallery() {
   const section = $("#works");
   const stage = section ? $(".wheel-stage", section) : null;
   const items = section ? $$(".work", section) : [];
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (!section || !stage || items.length === 0) return;
 
   let frame = 0;
   let currentPosition = null;
   const reset = () => {
+    section.style.removeProperty("height");
     items.forEach((item) => {
       item.style.removeProperty("--wheel-x");
       item.style.removeProperty("--wheel-y");
@@ -242,14 +297,14 @@ function initRotaryGallery() {
 
   const render = () => {
     frame = 0;
-    if (reducedMotion.matches) {
+    if (!isMotionEnabled()) {
       reset();
       return;
     }
 
     section.style.height = `${Math.max(
-      innerWidth <= 900 ? 300 : 420,
-      items.length * (innerWidth <= 900 ? 38 : 52),
+      innerWidth <= 900 ? 220 : 240,
+      items.length * (innerWidth <= 900 ? 30 : 34),
     )}vh`;
 
     const rect = section.getBoundingClientRect();
@@ -317,7 +372,11 @@ function initRotaryGallery() {
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
-  reducedMotion.addEventListener("change", requestRender);
+  onMotionPreferenceChange((enabled) => {
+    if (!enabled && frame) cancelAnimationFrame(frame);
+    frame = 0;
+    requestRender();
+  });
   render();
 }
 
@@ -328,7 +387,6 @@ function initThumbnailWheels() {
     items: $$(".gallery-item", section),
     currentPosition: null,
   }));
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   if (wheels.length === 0) return;
 
   let frame = 0;
@@ -354,7 +412,7 @@ function initThumbnailWheels() {
 
   const render = () => {
     frame = 0;
-    if (reducedMotion.matches) {
+    if (!isMotionEnabled()) {
       reset();
       return;
     }
@@ -363,8 +421,8 @@ function initThumbnailWheels() {
     wheels.forEach((wheel) => {
       const { section, stage, items } = wheel;
       section.style.height = `${Math.max(
-        innerWidth <= 900 ? 300 : 360,
-        items.length * (innerWidth <= 900 ? 38 : 52),
+        innerWidth <= 900 ? 210 : 220,
+        items.length * (innerWidth <= 900 ? 28 : 32),
       )}vh`;
       const rect = section.getBoundingClientRect();
       const travel = Math.max(1, section.offsetHeight - innerHeight);
@@ -429,12 +487,16 @@ function initThumbnailWheels() {
   addEventListener("scroll", requestRender, { passive: true });
   addEventListener("resize", requestRender);
   addEventListener("pageshow", requestRender);
-  reducedMotion.addEventListener("change", requestRender);
+  onMotionPreferenceChange((enabled) => {
+    if (!enabled && frame) cancelAnimationFrame(frame);
+    frame = 0;
+    requestRender();
+  });
   render();
 }
 
 function initRevealAnimations() {
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  if (!("IntersectionObserver" in window)) return;
   const selectors = [
     ".single-heading",
     ".about-detail > div",
@@ -458,7 +520,7 @@ function initRevealAnimations() {
       !item.matches(".color-text-ready") &&
       !item.querySelector(".color-text-ready"),
   );
-  if (items.length === 0 || reducedMotion.matches) return;
+  if (items.length === 0) return;
 
   document.documentElement.classList.add("reveal-enabled");
   items.forEach((item, index) => {
@@ -481,7 +543,7 @@ function initRevealAnimations() {
 }
 
 function initScrollColorText() {
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  if (!("IntersectionObserver" in window)) return;
   const selectors = [
     ".single-heading h2",
     ".single-heading > p:last-child",
@@ -622,7 +684,7 @@ function initScrollColorText() {
     frame = 0;
     targets.forEach((entry) => {
       const rect = entry.target.getBoundingClientRect();
-      const progress = reducedMotion.matches
+      const progress = !isMotionEnabled()
         ? 1
         : Math.min(
             1,
@@ -660,11 +722,12 @@ function initScrollColorText() {
   addEventListener("scroll", requestPaint, { passive: true });
   addEventListener("resize", rebuildLines);
   addEventListener("pageshow", requestPaint);
-  reducedMotion.addEventListener("change", requestPaint);
+  onMotionPreferenceChange(requestPaint);
   document.fonts?.ready.then(rebuildLines);
   paint();
 }
 
+initMotionToggle();
 initMenu();
 initActiveNavigation();
 initServerSlider();
