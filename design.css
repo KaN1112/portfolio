@@ -1666,8 +1666,6 @@ html[data-motion="off"] body:not(.works-page) #works .work .meta {
 
 .fortnite-map {
   min-width: 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--ink);
 }
 
 .fortnite-map__image {
