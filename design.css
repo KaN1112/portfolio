@@ -1657,6 +1657,201 @@ html[data-motion="off"] body:not(.works-page) #works .work .meta {
   color: var(--ink);
 }
 
+/* Fortnite maps */
+.fortnite-map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 28px;
+}
+
+.fortnite-map {
+  min-width: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--ink);
+}
+
+.fortnite-map__image {
+  display: block;
+  overflow: hidden;
+  background: var(--soft);
+}
+
+.fortnite-map__image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.fortnite-map__image:hover img,
+.fortnite-map__image:focus-visible img {
+  transform: scale(1.025);
+}
+
+.fortnite-map__body {
+  padding-top: 20px;
+}
+
+.fortnite-map__heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.fortnite-map__number,
+.fortnite-map__players,
+.fortnite-map__genre,
+.fortnite-map__description {
+  margin: 0;
+}
+
+.fortnite-map__number {
+  color: var(--muted);
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fortnite-map h3 {
+  margin: 4px 0 0;
+  font-family: "Manrope", "Zen Kaku Gothic New", sans-serif;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.fortnite-map__players {
+  flex: none;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.fortnite-map__genre {
+  margin-top: 12px;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.fortnite-map__description {
+  max-width: 58ch;
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.fortnite-map__actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.fortnite-map__code {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.fortnite-map__code > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.fortnite-map__code code {
+  font-family: "Manrope", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.fortnite-map__code button {
+  padding: 5px 9px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fortnite-map__code button:hover,
+.fortnite-map__code button:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fortnite-map__code small {
+  grid-column: 1 / -1;
+  min-height: 1.5em;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.fortnite-map__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-height: 40px;
+  padding: 9px 13px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.fortnite-map__link:hover,
+.fortnite-map__link:focus-visible {
+  transform: translateY(-2px);
+  opacity: 0.82;
+}
+
+@media (max-width: 760px) {
+  .fortnite-map-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
+  }
+}
+
+@media (max-width: 560px) {
+  .fortnite-map__body {
+    padding-top: 16px;
+  }
+  .fortnite-map__heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .fortnite-map__actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .fortnite-map__code {
+    width: 100%;
+    grid-template-columns: auto 1fr auto;
+  }
+  .fortnite-map__code code {
+    font-size: 12px;
+  }
+  .fortnite-map__link {
+    width: 100%;
+  }
+}
+
 /* Solid-glass header navigation */
 @media (min-width: 901px) {
   header nav {
@@ -1793,5 +1988,14 @@ html[data-motion="off"] body:not(.works-page) #works .work .meta {
   html[data-motion="off"] body:not(.works-page) #works .grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1240px) {
+  header nav a {
+    min-width: 0;
+    padding-right: 11px;
+    padding-left: 11px;
+    font-size: 12px;
   }
 }

@@ -7,6 +7,31 @@ const MOTION_STORAGE_KEY = "kan-portfolio-motion";
 const motionListeners = new Set();
 let motionEnabled = true;
 
+const FORTNITE_MAPS = [
+  {
+    title: "KaN's Battlefield",
+    code: "3536-3917-0646",
+    genre: "1v1 / Freebuild / Practice",
+    players: "16人",
+    description:
+      "フリービルドや1v1の建築バトルを楽しめる練習マップ。最新シーズンの武器にも対応しています。",
+    url: "https://www.fortnite.com/@kan_1112/3536-3917-0646",
+    image: "assets/kans-battlefield.webp",
+    alt: "KaN's Battlefieldのマップ画像",
+  },
+  {
+    title: "無限ゾーンウォーズ",
+    code: "7848-3163-6738",
+    genre: "Zone Wars / Practice",
+    players: "30人",
+    description:
+      "資材・弾薬・消耗品が無限のゾーンウォーズ。ストーム酔いもあり、実戦を意識した終盤戦の練習ができます。",
+    url: "https://www.fortnite.com/@kan_1112/7848-3163-6738",
+    image: "assets/mugen-zonewars.webp",
+    alt: "無限ゾーンウォーズのマップ画像",
+  },
+];
+
 try {
   motionEnabled = localStorage.getItem(MOTION_STORAGE_KEY) !== "off";
 } catch {
@@ -80,6 +105,76 @@ function initMenu() {
   });
   addEventListener("resize", () => {
     if (innerWidth > 900) close();
+  });
+}
+
+function renderFortniteMap(map, index) {
+  return `
+    <article class="fortnite-map">
+      <a class="fortnite-map__image" href="${map.url}" target="_blank" rel="noopener">
+        <img src="${map.image}" alt="${map.alt}" loading="lazy" decoding="async" width="1600" height="900" />
+      </a>
+      <div class="fortnite-map__body">
+        <div class="fortnite-map__heading">
+          <div>
+            <p class="fortnite-map__number">Map ${String(index + 1).padStart(2, "0")}</p>
+            <h3>${map.title}</h3>
+          </div>
+          <p class="fortnite-map__players">最大人数 ${map.players}</p>
+        </div>
+        <p class="fortnite-map__genre">${map.genre}</p>
+        <p class="fortnite-map__description">${map.description}</p>
+        <div class="fortnite-map__actions">
+          <div class="fortnite-map__code">
+            <span>島コード</span>
+            <code>${map.code}</code>
+            <button type="button" data-copy-code="${map.code}">コピー</button>
+            <small aria-live="polite"></small>
+          </div>
+          <a class="fortnite-map__link" href="${map.url}" target="_blank" rel="noopener">VIEW MAP ↗</a>
+        </div>
+      </div>
+    </article>`;
+}
+
+async function copyFortniteCode(code) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(code);
+    return;
+  }
+
+  const field = document.createElement("textarea");
+  field.value = code;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.opacity = "0";
+  document.body.append(field);
+  field.select();
+  const copied = document.execCommand("copy");
+  field.remove();
+  if (!copied) throw new Error("Copy failed");
+}
+
+function initFortniteMaps() {
+  const grid = $("#fortnite-map-grid");
+  if (!grid) return;
+
+  grid.innerHTML = FORTNITE_MAPS.map(renderFortniteMap).join("");
+  $$('[data-copy-code]', grid).forEach((button) => {
+    let feedbackTimer;
+    button.addEventListener("click", async () => {
+      const feedback = button.nextElementSibling;
+      clearTimeout(feedbackTimer);
+      try {
+        await copyFortniteCode(button.dataset.copyCode);
+        feedback.textContent = "コピーしました";
+      } catch {
+        feedback.textContent = "コピーできませんでした";
+      }
+      feedbackTimer = setTimeout(() => {
+        feedback.textContent = "";
+      }, 1800);
+    });
   });
 }
 
@@ -504,6 +599,7 @@ function initRevealAnimations() {
     ".home-profile__intro",
     ".home-skills",
     ".thumbnail-category-heading",
+    ".fortnite-map",
     ".motion-heading",
     ".motion-grid > article",
     ".server-heading",
@@ -730,6 +826,7 @@ function initScrollColorText() {
 initMotionToggle();
 initMenu();
 initActiveNavigation();
+initFortniteMaps();
 initServerSlider();
 initWorkFilters();
 initLightbox();
