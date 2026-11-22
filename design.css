@@ -1672,14 +1672,15 @@ html[data-motion="off"] body:not(.works-page) #works .work .meta {
 
 .fortnite-map__image {
   display: block;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--soft);
 }
 
 .fortnite-map__image img {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
   transition: transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
 }
 
@@ -1699,24 +1700,14 @@ html[data-motion="off"] body:not(.works-page) #works .work .meta {
   gap: 20px;
 }
 
-.fortnite-map__number,
 .fortnite-map__players,
 .fortnite-map__genre,
 .fortnite-map__description {
   margin: 0;
 }
 
-.fortnite-map__number {
-  color: var(--muted);
-  font-family: "Manrope", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .fortnite-map h3 {
-  margin: 4px 0 0;
+  margin: 0;
   font-family: "Manrope", "Zen Kaku Gothic New", sans-serif;
   font-size: clamp(22px, 2.1vw, 30px);
   line-height: 1.25;

@@ -108,16 +108,15 @@ function initMenu() {
   });
 }
 
-function renderFortniteMap(map, index) {
+function renderFortniteMap(map) {
   return `
     <article class="fortnite-map">
       <a class="fortnite-map__image" href="${map.url}" target="_blank" rel="noopener">
-        <img src="${map.image}" alt="${map.alt}" loading="lazy" decoding="async" width="1600" height="900" />
+        <img src="${map.image}" alt="${map.alt}" loading="lazy" decoding="async" width="1920" height="1080" />
       </a>
       <div class="fortnite-map__body">
         <div class="fortnite-map__heading">
           <div>
-            <p class="fortnite-map__number">Map ${String(index + 1).padStart(2, "0")}</p>
             <h3>${map.title}</h3>
           </div>
           <p class="fortnite-map__players">最大人数 ${map.players}</p>
